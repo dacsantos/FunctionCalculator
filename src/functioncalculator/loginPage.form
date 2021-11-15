@@ -53,7 +53,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="145" max="32767" attributes="0"/>
+              <EmptySpace pref="144" max="32767" attributes="0"/>
           </Group>
           <Component id="title" alignment="0" max="32767" attributes="0"/>
           <Component id="accessLabel" alignment="0" max="32767" attributes="0"/>
@@ -84,7 +84,7 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Component id="passwordWarning" pref="23" max="32767" attributes="0"/>
+              <Component id="passwordWarning" pref="22" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="loginButton" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
@@ -92,7 +92,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="newUsers" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="100" max="32767" attributes="0"/>
+              <EmptySpace pref="99" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -176,6 +176,7 @@
     <Component class="javax.swing.JPasswordField" name="passwordField">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordFieldActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passwordFieldKeyPressed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passwordFieldKeyReleased"/>
       </Events>
     </Component>

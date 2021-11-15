@@ -7,6 +7,7 @@ package functioncalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -110,6 +111,9 @@ public class loginPage extends javax.swing.JFrame {
             }
         });
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 passwordFieldKeyReleased(evt);
             }
@@ -142,7 +146,7 @@ public class loginPage extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(newUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                             .addComponent(signupButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(accessLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -167,14 +171,14 @@ public class loginPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
-                .addComponent(passwordWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(passwordWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newUsers)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,55 +186,61 @@ public class loginPage extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        if (usernameField.getText().trim().equals("admin") && passwordField.getText().trim().equals("dublin")) {
-            AdminMenu menu = new AdminMenu("admin");
-            menu.setVisible(true);
-            dispose();
+
+//        if (usernameField.getText().trim().equals("admin") && passwordField.getText().trim().equals("dublin")) {
+//            AdminMenu menu = new AdminMenu("admin");
+//            menu.setVisible(true);
+//            dispose();
+//        } else {
+        if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+            passwordWarning.setText("Password is invalid");
+        }
+        if (usernameField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+        } else if (passwordField.getText().trim().isEmpty()) {
+            passwordWarning.setText("Password is invalid");
         } else {
 
-            if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
-                userWarning.setText("Username is invalid");
-                passwordWarning.setText("Password is invalid");
-            }
-            if (usernameField.getText().trim().isEmpty()) {
-                userWarning.setText("Username is invalid");
-            } else if (passwordField.getText().trim().isEmpty()) {
-                passwordWarning.setText("Password is invalid");
-            } else {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                String sql = "Select * from userlogin where username=? and password=?";
 
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
-                    String sql = "Select * from userlogin where username=? and password=?";
+                PreparedStatement pst = con.prepareStatement(sql);
 
-                    PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, usernameField.getText());
+                pst.setString(2, passwordField.getText());
 
-                    pst.setString(1, usernameField.getText());
-                    pst.setString(2, passwordField.getText());
+                ResultSet rs = pst.executeQuery();
 
-                    ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    if (rs.getString("username").equals("admin")) {
 
-            if(rs.next()){
-                MainMenu menu = new MainMenu(usernameField.getText());
-                menu.setVisible(true);
-                setVisible(false);
-            }
-            else{
-                  JOptionPane.showMessageDialog(null, "Login Denied");
-                  usernameField.setText("");
-                  passwordField.setText("");
-            }
+                        AdminMenu menu = new AdminMenu("admin");
+                        menu.setVisible(true);
+                        dispose();
+                    }else{
+                    MainMenu menu = new MainMenu(usernameField.getText());
+                    menu.setVisible(true);
+                    setVisible(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login Denied");
+                    usernameField.setText("");
+                    passwordField.setText("");
+                }
 //                    MainMenu menu = new MainMenu(usernameField.getText());
 //                    menu.setVisible(true);
 //                    dispose();
 
-                    con.close();
+                con.close();
 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e);
-                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
         }
+//       }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
@@ -261,6 +271,61 @@ public class loginPage extends javax.swing.JFrame {
         newUser.setVisible(true);
         dispose();
     }//GEN-LAST:event_signupButtonMouseClicked
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+     if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+            passwordWarning.setText("Password is invalid");
+        }
+        if (usernameField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+        } else if (passwordField.getText().trim().isEmpty()) {
+            passwordWarning.setText("Password is invalid");
+        } else {
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                String sql = "Select * from userlogin where username=? and password=?";
+
+                PreparedStatement pst = con.prepareStatement(sql);
+
+                pst.setString(1, usernameField.getText());
+                pst.setString(2, passwordField.getText());
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    if (rs.getString("username").equals("admin")) {
+
+                        AdminMenu menu = new AdminMenu("admin");
+                        menu.setVisible(true);
+                        dispose();
+                    }else{
+                    MainMenu menu = new MainMenu(usernameField.getText());
+                    menu.setVisible(true);
+                    setVisible(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login Denied");
+                    usernameField.setText("");
+                    passwordField.setText("");
+                }
+//                    MainMenu menu = new MainMenu(usernameField.getText());
+//                    menu.setVisible(true);
+//                    dispose();
+
+                con.close();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+   }
+       
+    }//GEN-LAST:event_passwordFieldKeyPressed
 
     /**
      * @param args the command line arguments

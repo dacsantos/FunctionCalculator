@@ -7,6 +7,7 @@ package functioncalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,10 +20,11 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu(String username) {
         initComponents();
-         Toolkit toolkit = getToolkit();
+        Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2, size.height/2 - getHeight()/2);
         welcomeLabel.setText("Welcome, "+username);
+      
     }
 
     private MainMenu() {
@@ -126,7 +128,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void editInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoButtonActionPerformed
         // TODO add your handling code here:
-        EditInfo newInfo = new EditInfo();
+        EditInfo newInfo = new EditInfo(welcomeLabel.getText().substring(8).trim() );
         newInfo.setVisible(true);
         dispose();
     }//GEN-LAST:event_editInfoButtonActionPerformed

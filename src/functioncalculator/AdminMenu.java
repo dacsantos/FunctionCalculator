@@ -138,7 +138,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void editInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoButtonActionPerformed
         // TODO add your handling code here:
-        EditInfo newInfo = new EditInfo();
+        EditAdminInfo newInfo = new EditAdminInfo();
         newInfo.setVisible(true);
         dispose();
     }//GEN-LAST:event_editInfoButtonActionPerformed
