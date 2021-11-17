@@ -7,6 +7,12 @@ package functioncalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +28,7 @@ public class AdminMenu extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        welcomeLabel.setText("Welcome, "+username);
     }
 
     private AdminMenu() {
@@ -41,8 +48,8 @@ public class AdminMenu extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         mainMenuLabel = new javax.swing.JLabel();
         editInfoButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        listOfUsersButton = new javax.swing.JButton();
+        removeUserButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -69,11 +76,21 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("LIST OF USERS");
-        jButton1.setAlignmentY(0.0F);
+        listOfUsersButton.setText("LIST OF USERS");
+        listOfUsersButton.setAlignmentY(0.0F);
+        listOfUsersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listOfUsersButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("REMOVE USER");
-        jButton2.setAlignmentY(0.0F);
+        removeUserButton.setText("REMOVE USER");
+        removeUserButton.setAlignmentY(0.0F);
+        removeUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeUserButtonActionPerformed(evt);
+            }
+        });
 
         logOutButton.setText("LOG OUT");
         logOutButton.setAlignmentY(0.0F);
@@ -99,9 +116,9 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(logOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(removeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(editInfoButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(listOfUsersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(266, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,9 +133,9 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(editInfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listOfUsersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(removeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -138,10 +155,41 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void editInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoButtonActionPerformed
         // TODO add your handling code here:
-        EditAdminInfo newInfo = new EditAdminInfo();
+        EditAdminInfo newInfo = new EditAdminInfo(welcomeLabel.getText().substring(8).trim() );
         newInfo.setVisible(true);
         dispose();
     }//GEN-LAST:event_editInfoButtonActionPerformed
+
+    private void removeUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeUserButtonActionPerformed
+
+    private void listOfUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listOfUsersButtonActionPerformed
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+            String sql = "SELECT firstname, lastname, username from users.columns where table_name='userlogin';";
+
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                rs.getString(1); //or rs.getString("column name");
+            }
+            
+            
+
+//                    MainMenu menu = new MainMenu(usernameField.getText());
+//                    menu.setVisible(true);
+//                    dispose();
+            con.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+
+    }//GEN-LAST:event_listOfUsersButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,11 +228,11 @@ public class AdminMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editInfoButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton listOfUsersButton;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel mainMenuLabel;
+    private javax.swing.JButton removeUserButton;
     private javax.swing.JLabel title;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

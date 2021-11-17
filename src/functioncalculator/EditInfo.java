@@ -27,7 +27,7 @@ public class EditInfo extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
-        welcomeLabel.setText("Hi, "+username);
+        welcomeLabel.setText("Hi, " + username);
     }
 
     private EditInfo() {
@@ -137,7 +137,7 @@ public class EditInfo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(firstNameField))
                     .addComponent(warningRegistration, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(78, Short.MAX_VALUE))
             .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,7 +190,7 @@ public class EditInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_warningRegistrationKeyReleased
 
     private void saveRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegisterActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         String name = firstNameField.getText().trim();
         String lastname = lastNameField.getText().trim();
         String username = usernameField.getText().trim();
@@ -203,53 +203,45 @@ public class EditInfo extends javax.swing.JFrame {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                String check = "Select * from userlogin where username=?";
 
-//sql = "SELECT * FROM department INNER JOIN employee ON department.depno=employee.depno  ";
-//resultSet = statement.executeQuery(sql); 
-//
-//sql2="update employee set empage=? " ;  
-//ps=connection.prepareStatement(sql2);
-//       
-                String findUser = "Select 1 from userlogin where username=?"+username;
-                PreparedStatement pst = con.prepareStatement(findUser);
+                PreparedStatement pstCheck = con.prepareStatement(check);
 
-                ResultSet rs = pst.executeQuery(findUser);
+                pstCheck.setString(1, usernameField.getText());
 
-//                String sql = "UPDATE  Product set Price = ? where ID= ? ";          
-//            ps = con.prepareStatement(sql);         
-//            ps.setString(1, Userprice); 
-//            ps.setString(2, Userid); 
-//            int i = ps.executeUpdate();
-//            if (i > 0) { 
-//                System.out.println("Product Updated"); 
-//            } else {
-//                System.out.println("Error Occured");
-//            }
-                
-                
-                String newInfo = "UPDATE  userlogin set username=?, password=?, name=?, lastname=? where username=?";
+                ResultSet rs = pstCheck.executeQuery();
 
-                PreparedStatement pst2 = con.prepareStatement(newInfo);
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "\nUpdate Not Successful\n Username already taken!");
+                    pstCheck.close();
 
-                pst.setString(1, username);
-                pst.setString(2, password);
-                pst.setString(3, name);
-                pst.setString(4, lastname);
-                pst.setString(5, username);
+                } else {
 
-                pst.execute();
+                    String add = "update userlogin set username=?, password=?, firstname=?, lastname=? where username=?";
 
-                JOptionPane.showMessageDialog(null, "Information Updated");
-                MainMenu menu = new MainMenu(usernameField.getText().trim());
-                menu.setVisible(true);
-                setVisible(false);
+                    PreparedStatement pstAdd = con.prepareStatement(add);
 
-                pst.close();
-                con.close();
+                    pstAdd.setString(1, username);
+                    pstAdd.setString(2, password);
+                    pstAdd.setString(3, name);
+                    pstAdd.setString(4, lastname);
+                    pstAdd.setString(5,welcomeLabel.getText().substring(4).trim());
 
+                    pstAdd.execute();
+
+                    JOptionPane.showMessageDialog(null, "Update Successful");
+                    String user = username;
+                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                    menu.setVisible(true);
+                    setVisible(false);
+
+                    pstAdd.close();
+                    con.close();
+                }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e + "\nRegistration Not Successful");
+                JOptionPane.showMessageDialog(null, e + "\nUpdate Not Successful");
             }
+
         }
     }//GEN-LAST:event_saveRegisterActionPerformed
 

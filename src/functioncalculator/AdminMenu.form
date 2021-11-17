@@ -32,9 +32,9 @@
                   <Component id="jButton3" min="-2" pref="193" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="logOutButton" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jButton2" alignment="1" min="-2" pref="193" max="-2" attributes="0"/>
+                      <Component id="removeUserButton" alignment="1" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="editInfoButton" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                      <Component id="listOfUsersButton" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="266" max="32767" attributes="0"/>
@@ -53,9 +53,9 @@
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Component id="editInfoButton" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="listOfUsersButton" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="removeUserButton" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton3" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -103,17 +103,23 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editInfoButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="listOfUsersButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="LIST OF USERS"/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listOfUsersButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="removeUserButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="REMOVE USER"/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeUserButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="logOutButton">
       <Properties>

@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,7 +26,7 @@ public class RegistrationPage extends javax.swing.JFrame {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2, size.height/2 - getHeight()/2);
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
     }
 
     /**
@@ -109,23 +110,22 @@ public class RegistrationPage extends javax.swing.JFrame {
                         .addComponent(saveRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(256, 256, 256)
                         .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lastNameField))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(usernameField)
-                                .addComponent(passwordField))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lastNameField))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(firstNameField))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usernameField)
+                            .addComponent(passwordField)))
                     .addComponent(warningRegistration, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(78, Short.MAX_VALUE))
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -165,7 +165,7 @@ public class RegistrationPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,45 +177,58 @@ public class RegistrationPage extends javax.swing.JFrame {
         String lastname = lastNameField.getText().trim();
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
-        
-        if(name.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()){
-            warningRegistration.setText("All fields are required, please complete your details.");
-        }
-        
-        else{
-        
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users","root","1112pepper");
-            String sql = "INSERT INTO userlogin (username, password, firstname, lastname) VALUES (?, ?, ?,?)";
-            
-            PreparedStatement pst = con.prepareStatement(sql);
-            
-            pst.setString(1, username);
-            pst.setString(2, password);
-            pst.setString(3, name);
-            pst.setString(4, lastname);
-            
-            pst.execute();
 
-                JOptionPane.showMessageDialog(null, "Registration Successful");
-                MainMenu menu = new MainMenu(username);
-                menu.setVisible(true);
-                setVisible(false);
-          
-            pst.close();
-            con.close();
-            
-        }
-        catch(Exception e){
-           JOptionPane.showMessageDialog(null,e+"\nRegistration Not Successful");
-        }
+        if (name.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            warningRegistration.setText("All fields are required, please complete your details.");
+        } else {
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                String check = "Select * from userlogin where username=?";
+
+                PreparedStatement pstCheck = con.prepareStatement(check);
+
+                pstCheck.setString(1, usernameField.getText());
+
+                ResultSet rs = pstCheck.executeQuery();
+
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "\nRegistration Not Successful\n Username already taken!");
+                    pstCheck.close();
+
+                } else {
+
+                    String add = "INSERT INTO userlogin (username, password, firstname, lastname) VALUES (?, ?, ?,?)";
+
+                    PreparedStatement pstAdd = con.prepareStatement(add);
+
+                    pstAdd.setString(1, username);
+                    pstAdd.setString(2, password);
+                    pstAdd.setString(3, name);
+                    pstAdd.setString(4, lastname);
+
+                    pstAdd.execute();
+
+                    JOptionPane.showMessageDialog(null, "Registration Successful");
+                    String user = username;
+                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                    menu.setVisible(true);
+                    setVisible(false);
+
+                    pstAdd.close();
+                    con.close();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e + "\nRegistration Not Successful");
+            }
+
         }
     }//GEN-LAST:event_saveRegisterActionPerformed
 
     private void warningRegistrationKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_warningRegistrationKeyReleased
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_warningRegistrationKeyReleased
 
     private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed

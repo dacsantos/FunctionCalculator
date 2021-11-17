@@ -7,7 +7,6 @@ package functioncalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -76,8 +75,13 @@ public class MainMenu extends javax.swing.JFrame {
         jButton1.setText("CALCULATOR");
         jButton1.setAlignmentY(0.0F);
 
-        jButton2.setText("PAST CALCULATIONS");
+        jButton2.setText("HISTORY");
         jButton2.setAlignmentY(0.0F);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         logOutButton.setText("LOG OUT");
         logOutButton.setAlignmentY(0.0F);
@@ -139,6 +143,10 @@ public class MainMenu extends javax.swing.JFrame {
         newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
