@@ -202,7 +202,7 @@ public class EditInfo extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String check = "Select * from userlogin where username=?";
 
                 PreparedStatement pstCheck = con.prepareStatement(check);
@@ -225,7 +225,7 @@ public class EditInfo extends javax.swing.JFrame {
                     pstAdd.setString(2, password);
                     pstAdd.setString(3, name);
                     pstAdd.setString(4, lastname);
-                    pstAdd.setString(5,welcomeLabel.getText().substring(4).trim());
+                    pstAdd.setString(5, welcomeLabel.getText().substring(4).trim());
 
                     pstAdd.execute();
 

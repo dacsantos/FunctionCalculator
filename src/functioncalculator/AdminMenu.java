@@ -168,7 +168,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
             String sql = "SELECT firstname, lastname, username from users.columns where table_name='userlogin';";
 
             Statement s = con.createStatement();
