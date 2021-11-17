@@ -220,10 +220,10 @@ public class loginPage extends javax.swing.JFrame {
                         AdminMenu menu = new AdminMenu("admin");
                         menu.setVisible(true);
                         dispose();
-                    } else {
-                        MainMenu menu = new MainMenu(usernameField.getText());
-                        menu.setVisible(true);
-                        setVisible(false);
+                    }else{
+                    MainMenu menu = new MainMenu(usernameField.getText());
+                    menu.setVisible(true);
+                    setVisible(false);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Login Denied");
@@ -273,61 +273,61 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_signupButtonMouseClicked
 
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+     if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+            passwordWarning.setText("Password is invalid");
+        }
+        if (usernameField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+        } else if (passwordField.getText().trim().isEmpty()) {
+            passwordWarning.setText("Password is invalid");
+        } else {
 
-            if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
-                userWarning.setText("Username is invalid");
-                passwordWarning.setText("Password is invalid");
-            }
-            if (usernameField.getText().trim().isEmpty()) {
-                userWarning.setText("Username is invalid");
-            } else if (passwordField.getText().trim().isEmpty()) {
-                passwordWarning.setText("Password is invalid");
-            } else {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                String sql = "Select * from userlogin where username=? and password=?";
 
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
-                    String sql = "Select * from userlogin where username=? and password=?";
+                PreparedStatement pst = con.prepareStatement(sql);
 
-                    PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, usernameField.getText());
+                pst.setString(2, passwordField.getText());
 
-                    pst.setString(1, usernameField.getText());
-                    pst.setString(2, passwordField.getText());
+                ResultSet rs = pst.executeQuery();
 
-                    ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    if (rs.getString("usertype").equals("1")) {
 
-                    if (rs.next()) {
-                        if (rs.getString("usertype").equals("1")) {
-
-                            String user = rs.getString("username");
-                            AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
-                            menu.setVisible(true);
-                            dispose();
-                        } else {
-
-                            String user = rs.getString("username");
-                            MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
-                            menu.setVisible(true);
-                            setVisible(false);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Login Denied");
-                        usernameField.setText("");
-                        passwordField.setText("");
+                        String user = rs.getString("username");
+                        AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                        menu.setVisible(true);
+                        dispose();
+                    }else{
+                    
+                    String user = rs.getString("username");
+                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                    menu.setVisible(true);
+                    setVisible(false);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login Denied");
+                    usernameField.setText("");
+                    passwordField.setText("");
+                }
 //                    MainMenu menu = new MainMenu(usernameField.getText());
 //                    menu.setVisible(true);
 //                    dispose();
 
-                    con.close();
+                con.close();
 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e);
-                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
         }
-
+   }
+       
     }//GEN-LAST:event_passwordFieldKeyPressed
 
     /**

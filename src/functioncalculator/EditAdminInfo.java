@@ -124,7 +124,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(saveRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(256, 256, 256)
                         .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -145,7 +145,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(firstNameField))
                     .addComponent(warningRegistration, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -192,7 +192,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
 
     private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed
         // TODO add your handling code here:
-        MainMenu newInfo = new MainMenu(welcomeLabel.getText().substring(4).trim());
+        AdminMenu newInfo = new AdminMenu(welcomeLabel.getText().substring(4).trim());
         newInfo.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegisterActionPerformed
@@ -239,7 +239,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(null, "Update Successful");
                     String user = username;
-                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                    AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
                     menu.setVisible(true);
                     setVisible(false);
 

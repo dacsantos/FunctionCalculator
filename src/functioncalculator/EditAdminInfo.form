@@ -40,7 +40,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="saveRegister" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="256" max="-2" attributes="0"/>
                       <Component id="backRegister" min="-2" pref="140" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
                   </Group>
                   <Component id="warningRegistration" alignment="1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace pref="78" max="32767" attributes="0"/>
           </Group>
           <Component id="welcomeLabel" alignment="1" max="32767" attributes="0"/>
       </Group>

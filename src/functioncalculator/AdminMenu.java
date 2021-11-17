@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -166,27 +167,9 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void listOfUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listOfUsersButtonActionPerformed
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
-            String sql = "SELECT firstname, lastname, username from users.columns where table_name='userlogin';";
-
-            Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery(sql);
-            while (rs.next()) {
-                rs.getString(1); //or rs.getString("column name");
-            }
-            
-            
-
-//                    MainMenu menu = new MainMenu(usernameField.getText());
-//                    menu.setVisible(true);
-//                    dispose();
-            con.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        ListOfUsers newList = new ListOfUsers();
+        newList.setVisible(true);
+        dispose();
 
 
     }//GEN-LAST:event_listOfUsersButtonActionPerformed
