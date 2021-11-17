@@ -204,7 +204,7 @@ public class loginPage extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String sql = "Select * from userlogin where username=? and password=?";
 
                 PreparedStatement pst = con.prepareStatement(sql);
@@ -287,7 +287,7 @@ public class loginPage extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String sql = "Select * from userlogin where username=? and password=?";
 
                 PreparedStatement pst = con.prepareStatement(sql);

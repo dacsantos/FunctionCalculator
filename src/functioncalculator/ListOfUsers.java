@@ -33,7 +33,7 @@ public class ListOfUsers extends javax.swing.JFrame {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "1112pepper");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
             String sql = "SELECT firstname, lastname, username from userlogin;";
 
             PreparedStatement pst = con.prepareStatement(sql);
@@ -41,14 +41,14 @@ public class ListOfUsers extends javax.swing.JFrame {
             
             tableOfUsers.setModel(DbUtils.resultSetToTableModel(rs));
 
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int colCount = rsmd.getColumnCount();
-
-            for (int i = 1; i <= colCount; i++) {
-                String columns = rsmd.getColumnLabel(i) + "\t";
-                System.out.print(columns.substring(0, 1).toUpperCase() + columns.substring(1));
-
-            }
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//            int colCount = rsmd.getColumnCount();
+//
+//            for (int i = 1; i <= colCount; i++) {
+//                String columns = rsmd.getColumnLabel(i) + "\t";
+//                System.out.print(columns.substring(0, 1).toUpperCase() + columns.substring(1));
+//
+//            }
 
 //            while (rs.next()) {
 //                rs.getString(1); //or rs.getString("column name");
@@ -158,9 +158,9 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
         // TODO add your handling code here:
-        AdminMenu newInfo = new AdminMenu();
-        newInfo.setVisible(true);
-        dispose();
+//        AdminMenu newInfo = new AdminMenu();
+//        newInfo.setVisible(true);
+//        dispose();
     }//GEN-LAST:event_backRegister1ActionPerformed
 
     /**
