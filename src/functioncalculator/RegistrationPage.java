@@ -184,7 +184,11 @@ public class RegistrationPage extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
+<<<<<<< Updated upstream
                  Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+=======
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+>>>>>>> Stashed changes
                 String check = "Select * from userlogin where username=?";
 
                 PreparedStatement pstCheck = con.prepareStatement(check);

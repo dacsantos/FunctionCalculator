@@ -204,8 +204,12 @@ public class loginPage extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
+<<<<<<< Updated upstream
               //  jdbc:mysql://localhost:3306/friends
                   Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+=======
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+>>>>>>> Stashed changes
                 String sql = "Select * from userlogin where username=? and password=?";
 
                 PreparedStatement pst = con.prepareStatement(sql);
@@ -274,7 +278,31 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_signupButtonMouseClicked
 
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+<<<<<<< Updated upstream
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+=======
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+     if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+            passwordWarning.setText("Password is invalid");
+        }
+        if (usernameField.getText().trim().isEmpty()) {
+            userWarning.setText("Username is invalid");
+        } else if (passwordField.getText().trim().isEmpty()) {
+            passwordWarning.setText("Password is invalid");
+        } else {
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+                String sql = "Select * from userlogin where username=? and password=?";
+
+                PreparedStatement pst = con.prepareStatement(sql);
+
+                pst.setString(1, usernameField.getText());
+                pst.setString(2, passwordField.getText());
+>>>>>>> Stashed changes
 
             if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
                 userWarning.setText("Username is invalid");
