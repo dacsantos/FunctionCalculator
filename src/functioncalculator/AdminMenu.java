@@ -29,6 +29,7 @@ public class AdminMenu extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + username);
         welcomeLabel.setText("Welcome, "+username);
     }
 
@@ -47,12 +48,12 @@ public class AdminMenu extends javax.swing.JFrame {
 
         welcomeLabel = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        mainMenuLabel = new javax.swing.JLabel();
         editInfoButton = new javax.swing.JButton();
         listOfUsersButton = new javax.swing.JButton();
         removeUserButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        mainMenuLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,10 +65,6 @@ public class AdminMenu extends javax.swing.JFrame {
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Function Calculator");
         title.setAlignmentY(0.0F);
-
-        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainMenuLabel.setText("ADMIN MENU");
 
         editInfoButton.setText("EDIT ADMIN INFO");
         editInfoButton.setAlignmentY(0.0F);
@@ -104,12 +101,15 @@ public class AdminMenu extends javax.swing.JFrame {
         jButton3.setText("ALL PAST CALCULATIONS");
         jButton3.setAlignmentY(0.0F);
 
+        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mainMenuLabel.setText("ADMIN MENU - Connected Admin:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(mainMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(257, 257, 257)
@@ -121,15 +121,16 @@ public class AdminMenu extends javax.swing.JFrame {
                         .addComponent(editInfoButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(listOfUsersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(266, Short.MAX_VALUE))
+            .addComponent(mainMenuLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(title)
-                .addGap(18, 18, 18)
-                .addComponent(mainMenuLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mainMenuLabel)
+                .addGap(18, 18, 18)
                 .addComponent(welcomeLabel)
                 .addGap(41, 41, 41)
                 .addComponent(editInfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,11 +164,14 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void removeUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserButtonActionPerformed
         // TODO add your handling code here:
+        DeleteUser remove = new DeleteUser(welcomeLabel.getText().substring(8).trim());
+        remove.setVisible(true);
+        dispose();
     }//GEN-LAST:event_removeUserButtonActionPerformed
 
     private void listOfUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listOfUsersButtonActionPerformed
 
-        ListOfUsers newList = new ListOfUsers();
+        ListOfUsers newList = new ListOfUsers(welcomeLabel.getText().substring(8).trim());
         newList.setVisible(true);
         dispose();
 

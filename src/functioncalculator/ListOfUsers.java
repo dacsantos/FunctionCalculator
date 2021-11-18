@@ -25,43 +25,32 @@ public class ListOfUsers extends javax.swing.JFrame {
     /**
      * Creates new form ListOfUsers
      */
-    public ListOfUsers() {
+    public ListOfUsers(String admin) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + admin);
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-            String sql = "SELECT firstname, lastname, username from userlogin;";
+            String sql = "SELECT firstname as Name, lastname as Surname, username as Username from userlogin;";
 
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
             
             tableOfUsers.setModel(DbUtils.resultSetToTableModel(rs));
 
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//            int colCount = rsmd.getColumnCount();
-//
-//            for (int i = 1; i <= colCount; i++) {
-//                String columns = rsmd.getColumnLabel(i) + "\t";
-//                System.out.print(columns.substring(0, 1).toUpperCase() + columns.substring(1));
-//
-//            }
-
-//            while (rs.next()) {
-//                rs.getString(1); //or rs.getString("column name");
-//                System.out.println(rs.getString(1));
-//            }
-//                    MainMenu menu = new MainMenu(usernameField.getText());
-//                    menu.setVisible(true);
-//                    dispose();
             con.close();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    private ListOfUsers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -77,7 +66,7 @@ public class ListOfUsers extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         mainMenuLabel = new javax.swing.JLabel();
         backRegister1 = new javax.swing.JButton();
-        listOfUsersDisplay = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tableOfUsers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,7 +82,7 @@ public class ListOfUsers extends javax.swing.JFrame {
 
         mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainMenuLabel.setText("ADMIN MENU");
+        mainMenuLabel.setText("ADMIN MENU - Connected Admin:");
 
         backRegister1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backRegister1.setText("BACK");
@@ -108,18 +97,10 @@ public class ListOfUsers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "First Name", "Last Name", "Username"
+                "Name", "Surname", "Username"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        listOfUsersDisplay.setViewportView(tableOfUsers);
+        ));
+        jScrollPane1.setViewportView(tableOfUsers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,13 +110,13 @@ public class ListOfUsers extends javax.swing.JFrame {
             .addComponent(mainMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(listLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(287, 287, 287)
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(288, 288, 288)
                 .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(listOfUsersDisplay)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,9 +127,9 @@ public class ListOfUsers extends javax.swing.JFrame {
                 .addComponent(mainMenuLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(listLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listOfUsersDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
                 .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,9 +139,9 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
         // TODO add your handling code here:
-//        AdminMenu newInfo = new AdminMenu();
-//        newInfo.setVisible(true);
-//        dispose();
+        AdminMenu newInfo = new AdminMenu(mainMenuLabel.getText().substring(30).trim());
+        newInfo.setVisible(true);
+        dispose();
     }//GEN-LAST:event_backRegister1ActionPerformed
 
     /**
@@ -200,9 +181,8 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel listLabel;
-    private javax.swing.JScrollPane listOfUsersDisplay;
     private javax.swing.JLabel mainMenuLabel;
     private javax.swing.JTable tableOfUsers;
     private javax.swing.JLabel title;

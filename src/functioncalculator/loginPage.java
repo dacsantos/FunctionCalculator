@@ -187,12 +187,7 @@ public class loginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
 
-//        if (usernameField.getText().trim().equals("admin") && passwordField.getText().trim().equals("dublin")) {
-//            AdminMenu menu = new AdminMenu("admin");
-//            menu.setVisible(true);
-//            dispose();
-//        } else {
-        if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
             userWarning.setText("Username is invalid");
             passwordWarning.setText("Password is invalid");
         }
@@ -215,13 +210,16 @@ public class loginPage extends javax.swing.JFrame {
                 ResultSet rs = pst.executeQuery();
 
                 if (rs.next()) {
-                    if (rs.getString("username").equals("admin")) {
+                    if (rs.getString("usertype").equals("1")) {
 
-                        AdminMenu menu = new AdminMenu("admin");
+                        String user = rs.getString("username");
+                        AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
                         menu.setVisible(true);
                         dispose();
                     }else{
-                    MainMenu menu = new MainMenu(usernameField.getText());
+                    
+                    String user = rs.getString("username");
+                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
                     menu.setVisible(true);
                     setVisible(false);
                     }
@@ -240,7 +238,6 @@ public class loginPage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
-//       }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
