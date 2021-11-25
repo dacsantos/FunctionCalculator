@@ -91,7 +91,8 @@ public class RegistrationPage extends javax.swing.JFrame {
             }
         });
 
-        warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        warningRegistration.setForeground(new java.awt.Color(255, 51, 51));
         warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         warningRegistration.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -205,8 +206,8 @@ public class RegistrationPage extends javax.swing.JFrame {
 
                     pstAdd.setString(1, username);
                     pstAdd.setString(2, password);
-                    pstAdd.setString(3, name);
-                    pstAdd.setString(4, lastname);
+                    pstAdd.setString(3, name.substring(0, 1).toUpperCase() + name.substring(1));
+                    pstAdd.setString(4, lastname.substring(0, 1).toUpperCase() + lastname.substring(1));
 
                     pstAdd.execute();
 

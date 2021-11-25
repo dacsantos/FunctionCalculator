@@ -231,8 +231,8 @@ public class EditAdminInfo extends javax.swing.JFrame {
 
                     pstAdd.setString(1, username);
                     pstAdd.setString(2, password);
-                    pstAdd.setString(3, name);
-                    pstAdd.setString(4, lastname);
+                    pstAdd.setString(3, name.substring(0, 1).toUpperCase() + name.substring(1));
+                    pstAdd.setString(4, lastname.substring(0, 1).toUpperCase() + lastname.substring(1));
                     pstAdd.setString(5,welcomeLabel.getText().substring(4).trim());
 
                     pstAdd.execute();

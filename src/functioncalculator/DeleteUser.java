@@ -161,13 +161,13 @@ public class DeleteUser extends javax.swing.JFrame {
                 ResultSet rs = pstCheck.executeQuery();
 
                 if (!rs.next()) {
-                    JOptionPane.showMessageDialog(null, "\n Action Not Successful\n Username doesn't exist!");
+                    JOptionPane.showMessageDialog(null, "\n Action Not Successful\nUsername doesn't exist!");
                     deletionTextField.setText("");
                     deletionTextField.requestFocus();
                     pstCheck.close();
 
                 } else if(rs.getString("usertype").equals("1")) {
-                    JOptionPane.showMessageDialog(null, "\n Action Not Successful\n You can't remove an Admin!");
+                    JOptionPane.showMessageDialog(null, "\n Action Not Successful\nYou can't remove an Admin!");
                     deletionTextField.setText("");
                     deletionTextField.requestFocus();
                     pstCheck.close();
@@ -182,7 +182,7 @@ public class DeleteUser extends javax.swing.JFrame {
 
                     pstRemove.execute();
 
-                    JOptionPane.showMessageDialog(null, "Action Successful");
+                    JOptionPane.showMessageDialog(null, "Action Successful\nUser "+username+" removed from database");
                     
                     deletionTextField.setText("");
                     deletionTextField.requestFocus();
