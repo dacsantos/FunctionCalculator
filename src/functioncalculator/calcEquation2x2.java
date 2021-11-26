@@ -15,7 +15,11 @@ import java.awt.Toolkit;
 public class calcEquation2x2 extends javax.swing.JFrame {
 
     /**
-     * Creates new form calcEquation2x2
+     * Creates new form calcEquation2x2 - and apply dimensions to set the window
+     * in the middle of the screen
+     *
+     * @param username - name of the current connected User for greeting and
+     * tracking purposes
      */
     public calcEquation2x2(String username) {
         initComponents();
@@ -23,10 +27,6 @@ public class calcEquation2x2 extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
         welcomeLabel.setText("Hi, " + username);
-    }
-
-    private calcEquation2x2() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -40,9 +40,9 @@ public class calcEquation2x2 extends javax.swing.JFrame {
 
         title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        varC = new javax.swing.JTextField();
+        varD = new javax.swing.JTextField();
+        varF = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -55,9 +55,9 @@ public class calcEquation2x2 extends javax.swing.JFrame {
         newCalcButton = new javax.swing.JButton();
         calculateButton = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        varA = new javax.swing.JTextField();
+        varB = new javax.swing.JTextField();
+        varE = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -124,6 +124,11 @@ public class calcEquation2x2 extends javax.swing.JFrame {
 
         calculateButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         calculateButton.setText("Calculate");
+        calculateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateButtonActionPerformed(evt);
+            }
+        });
 
         welcomeLabel.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -177,27 +182,27 @@ public class calcEquation2x2 extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(varA, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(varB, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(varE, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(varC, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(varD, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(varF, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(107, 107, 107))
@@ -215,17 +220,17 @@ public class calcEquation2x2 extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varE, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -255,63 +260,17 @@ public class calcEquation2x2 extends javax.swing.JFrame {
 
     private void saveCalcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCalcButtonActionPerformed
         // TODO add your handling code here:
-//        String name = firstNameField.getText().trim();
-//        String lastname = lastNameField.getText().trim();
-//        String username = usernameField.getText().trim();
-//        String password = passwordField.getText().trim();
-//
-//        if (name.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()) {
-//            warningRegistration.setText("All fields are required, please complete your details.");
-//        } else {
-//
-//            try {
-//                Class.forName("com.mysql.cj.jdbc.Driver");
-//                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-//                String check = "Select * from userlogin where username=?";
-//
-//                PreparedStatement pstCheck = con.prepareStatement(check);
-//
-//                pstCheck.setString(1, usernameField.getText());
-//
-//                ResultSet rs = pstCheck.executeQuery();
-//
-//                if (rs.next()) {
-//                    JOptionPane.showMessageDialog(null, "\nRegistration Not Successful\n Username already taken!");
-//                    pstCheck.close();
-//
-//                } else {
-//
-//                    String add = "INSERT INTO userlogin (username, password, firstname, lastname) VALUES (?, ?, ?,?)";
-//
-//                    PreparedStatement pstAdd = con.prepareStatement(add);
-//
-//                    pstAdd.setString(1, username);
-//                    pstAdd.setString(2, password);
-//                    pstAdd.setString(3, name);
-//                    pstAdd.setString(4, lastname);
-//
-//                    pstAdd.execute();
-//
-//                    JOptionPane.showMessageDialog(null, "Registration Successful");
-//                    String user = username;
-//                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
-//                    menu.setVisible(true);
-//                    setVisible(false);
-//
-//                    pstAdd.close();
-//                    con.close();
-//                }
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(null, e + "\nRegistration Not Successful");
-//            }
-//
-//        }
+
     }//GEN-LAST:event_saveCalcButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
-        Calculation newCalcMenu = new Calculation(welcomeLabel.getText().substring(4).trim());
-        newCalcMenu.setVisible(true);
+        /**
+         * Back button will take the user back to the Calculation menu and
+         * dispose of the current menu. It will also give the name of the User
+         * as a parameter to be used in the greeting label.
+         */
+        Calculation calcMenu = new Calculation(welcomeLabel.getText().substring(4).trim());
+        calcMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
@@ -319,40 +278,11 @@ public class calcEquation2x2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_newCalcButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(calcEquation2x2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(calcEquation2x2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(calcEquation2x2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(calcEquation2x2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
+        // TODO add your handling code here:
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new calcEquation2x2().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_calculateButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
@@ -369,15 +299,15 @@ public class calcEquation2x2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JButton newCalcButton;
     private javax.swing.JButton saveCalcButton;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField varA;
+    private javax.swing.JTextField varB;
+    private javax.swing.JTextField varC;
+    private javax.swing.JTextField varD;
+    private javax.swing.JTextField varE;
+    private javax.swing.JTextField varF;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

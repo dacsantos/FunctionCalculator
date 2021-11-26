@@ -62,28 +62,28 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jTextField4" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="varA" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField5" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="varB" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel10" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField6" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="varE" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="varC" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField2" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="varD" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="varF" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -105,18 +105,18 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField4" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="jTextField5" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="jTextField6" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="varA" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="varB" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="varE" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="jTextField3" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="varC" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="varD" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="varF" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
@@ -169,11 +169,11 @@
         <Property name="text" type="java.lang.String" value="Insert the numeric values for the two equations"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="varC">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="varD">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="varF">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -274,6 +274,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Calculate"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calculateButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="welcomeLabel">
       <Properties>
@@ -284,11 +287,11 @@
         <Property name="text" type="java.lang.String" value="Hi"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
+    <Component class="javax.swing.JTextField" name="varA">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField5">
+    <Component class="javax.swing.JTextField" name="varB">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField6">
+    <Component class="javax.swing.JTextField" name="varE">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>

@@ -11,8 +11,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -23,7 +21,11 @@ import net.proteanit.sql.DbUtils;
 public class ListOfUsers extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListOfUsers
+     * Creates new form ListOfUsers - and apply dimensions to set the window in
+     * the middle of the screen
+     *
+     * @param admin - name of the current connected Admin for greeting and
+     * tracking purposes
      */
     public ListOfUsers(String admin) {
         initComponents();
@@ -33,13 +35,22 @@ public class ListOfUsers extends javax.swing.JFrame {
         mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + admin);
 
         try {
+            //Connecting to the database
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-            String sql = "SELECT firstname as Name, lastname as Surname, username as Username, usertype as Admin from userlogin;";
+            /**
+             * This query will collect the information to be displayed in our
+             * list.
+             */
+            String sql = "SELECT firstname as Name, lastname as Surname, username as Username, userAdmin as 'System Admin' from userlogin;";
 
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
-            
+            /**
+             * We imported DBUTILS to create this table and display the list of
+             * users. It will get the result data from our ResultSet and
+             * populate our table.
+             */
             tableOfUsers.setModel(DbUtils.resultSetToTableModel(rs));
 
             con.close();
@@ -47,10 +58,6 @@ public class ListOfUsers extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    }
-
-    private ListOfUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -147,47 +154,15 @@ public class ListOfUsers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
-        // TODO add your handling code here:
-        AdminMenu newInfo = new AdminMenu(mainMenuLabel.getText().substring(30).trim());
-        newInfo.setVisible(true);
+        /**
+         * Back button will take the admin back to its menu and dispose of the
+         * Listing menu. It will also give the name of the Admin as a parameter
+         * to be used in the greeting label.
+         */
+        AdminMenu menu = new AdminMenu(mainMenuLabel.getText().substring(30).trim());
+        menu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegister1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListOfUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListOfUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListOfUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListOfUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListOfUsers().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister1;
     private javax.swing.JScrollPane jScrollPane1;

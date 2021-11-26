@@ -15,7 +15,11 @@ import java.awt.Toolkit;
 public class Calculation extends javax.swing.JFrame {
 
     /**
-     * Creates new form Calculation
+     * Creates new form Calculation - and apply dimensions to set the window in
+     * the middle of the screen
+     *
+     * @param username - name of the current connected User for greeting and
+     * tracking purposes
      */
     public Calculation(String username) {
         initComponents();
@@ -24,11 +28,6 @@ public class Calculation extends javax.swing.JFrame {
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
         welcomeLabel.setText("Hi, " + username);
     }
-
-    private Calculation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,7 +40,7 @@ public class Calculation extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         calculationMenuLabel = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        twobytwo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         backRegister1 = new javax.swing.JButton();
 
@@ -60,11 +59,11 @@ public class Calculation extends javax.swing.JFrame {
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Hi");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Linear equation with 2 variables (2x2 Matrix)");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        twobytwo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        twobytwo.setText("Linear equation with 2 variables (2x2 Matrix)");
+        twobytwo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                twobytwoActionPerformed(evt);
             }
         });
 
@@ -93,7 +92,7 @@ public class Calculation extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(twobytwo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -111,7 +110,7 @@ public class Calculation extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(calculationMenuLabel)
                 .addGap(69, 69, 69)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(twobytwo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
@@ -123,60 +122,32 @@ public class Calculation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
-        // TODO add your handling code here:
-        MainMenu newMenu = new MainMenu(welcomeLabel.getText().substring(4).trim());
-        newMenu.setVisible(true);
+        /**
+         * Back button will take the user back to its menu and dispose of the
+         * Calculation menu. It will also give the name of the User as a
+         * parameter to be used in the greeting label.
+         */
+        MainMenu menu = new MainMenu(welcomeLabel.getText().substring(4).trim());
+        menu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegister1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        calcEquation2x2 newCalc = new calcEquation2x2(welcomeLabel.getText().substring(4).trim());
-        newCalc.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+    private void twobytwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twobytwoActionPerformed
+        /**
+         * This button will take the user to the Calculation of a two
+         * variable-equation. It will also give the name of the User as a
+         * parameter to be used in the greeting label.
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Calculation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Calculation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Calculation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Calculation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Calculation().setVisible(true);
-            }
-        });
-    }
-
+        calcEquation2x2 calcTwo = new calcEquation2x2(welcomeLabel.getText().substring(4).trim());
+        calcTwo.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_twobytwoActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister1;
     private javax.swing.JLabel calculationMenuLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel title;
+    private javax.swing.JButton twobytwo;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

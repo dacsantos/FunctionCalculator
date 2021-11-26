@@ -32,7 +32,7 @@
                   <Component id="calculatorButton" min="-2" pref="191" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="logOutButton" max="32767" attributes="0"/>
-                      <Component id="jButton2" alignment="1" min="-2" pref="193" max="-2" attributes="0"/>
+                      <Component id="history" alignment="1" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="editInfoButton" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -54,7 +54,7 @@
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="calculatorButton" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="history" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="logOutButton" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace pref="106" max="32767" attributes="0"/>
@@ -109,13 +109,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calculatorButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="history">
       <Properties>
         <Property name="text" type="java.lang.String" value="HISTORY"/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historyActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="logOutButton">

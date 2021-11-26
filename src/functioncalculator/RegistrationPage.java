@@ -20,7 +20,8 @@ import javax.swing.JOptionPane;
 public class RegistrationPage extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegistrationPage
+     * Creates new form RegistrationPage - and apply dimensions to set the
+     * window in the middle of the screen
      */
     public RegistrationPage() {
         initComponents();
@@ -94,11 +95,6 @@ public class RegistrationPage extends javax.swing.JFrame {
         warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         warningRegistration.setForeground(new java.awt.Color(255, 51, 51));
         warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        warningRegistration.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                warningRegistrationKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,37 +169,58 @@ public class RegistrationPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegisterActionPerformed
-        // TODO add your handling code here:
+        /**
+         * This button will save the new data typed.
+         */
+
+        //Getting the data typed and inputting into variables. 
         String name = firstNameField.getText().trim();
         String lastname = lastNameField.getText().trim();
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
+        //This condition will verify if any of the fields are empty.
         if (name.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()) {
             warningRegistration.setText("All fields are required, please complete your details.");
         } else {
 
             try {
+                //Connecting to the database
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String check = "Select * from userlogin where username=?";
-
+                /**
+                 * Statement that will receive the query. First we will check if
+                 * the username already exists in the database
+                 */
                 PreparedStatement pstCheck = con.prepareStatement(check);
 
                 pstCheck.setString(1, usernameField.getText());
 
                 ResultSet rs = pstCheck.executeQuery();
-
+                /**
+                 * Condition in case username is already taken.
+                 */
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(null, "\nRegistration Not Successful\n Username already taken!");
                     pstCheck.close();
 
                 } else {
+                    /**
+                     * If username is not taken. We will prepare another query,
+                     * this time to insert the new info and create a user.
+                     */
 
                     String add = "INSERT INTO userlogin (username, password, firstname, lastname) VALUES (?, ?, ?,?)";
 
                     PreparedStatement pstAdd = con.prepareStatement(add);
 
+                    /**
+                     * Passing the variables with the new info. -- Name and
+                     * Lastname were also set to have a first letter uppercase.
+                     * -- Used the username in the greeting label as a parameter
+                     * to find the current username in the database.
+                     */
                     pstAdd.setString(1, username);
                     pstAdd.setString(2, password);
                     pstAdd.setString(3, name.substring(0, 1).toUpperCase() + name.substring(1));
@@ -212,8 +229,13 @@ public class RegistrationPage extends javax.swing.JFrame {
                     pstAdd.execute();
 
                     JOptionPane.showMessageDialog(null, "Registration Successful");
-                    String user = username;
-                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                    /**
+                     * This will take the new User to its Menu after creating
+                     * its profile. -- It will also pass the username, with
+                     * first letter uppercase, as a parameter to be used in the
+                     * greeting label and for tracking the current user
+                     */
+                    MainMenu menu = new MainMenu(username.substring(0, 1).toUpperCase() + username.substring(1));
                     menu.setVisible(true);
                     setVisible(false);
 
@@ -227,53 +249,15 @@ public class RegistrationPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveRegisterActionPerformed
 
-    private void warningRegistrationKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_warningRegistrationKeyReleased
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_warningRegistrationKeyReleased
-
     private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed
-        // TODO add your handling code here:
-        loginPage login = new loginPage();
-        login.setVisible(true);
+        /**
+         * Back button will take the User back to the login menu and dispose of
+         * the Registration menu.
+         */
+        loginPage newLogin = new loginPage();
+        newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegisterActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrationPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrationPage().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister;
     private javax.swing.JTextField firstNameField;

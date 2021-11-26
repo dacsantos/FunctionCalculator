@@ -15,22 +15,20 @@ import java.awt.Toolkit;
 public class MainMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainMenu
+     * Creates new form MainMenu - and apply dimensions to set the window in the
+     * middle of the screen
+     *
+     * @param username - name of the current connected User for greeting and
+     * tracking purposes
      */
     public MainMenu(String username) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2, size.height/2 - getHeight()/2);
-        welcomeLabel.setText("Welcome, "+username);
-      
-    }
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        welcomeLabel.setText("Welcome, " + username);
 
-    private MainMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +44,7 @@ public class MainMenu extends javax.swing.JFrame {
         welcomeLabel = new javax.swing.JLabel();
         editInfoButton = new javax.swing.JButton();
         calculatorButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        history = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,11 +78,11 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("HISTORY");
-        jButton2.setAlignmentY(0.0F);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        history.setText("HISTORY");
+        history.setAlignmentY(0.0F);
+        history.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                historyActionPerformed(evt);
             }
         });
 
@@ -109,7 +107,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(calculatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(logOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(editInfoButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(263, Short.MAX_VALUE))
         );
@@ -127,7 +125,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(calculatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(106, Short.MAX_VALUE))
@@ -137,70 +135,45 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoButtonActionPerformed
-        // TODO add your handling code here:
-        EditInfo newInfo = new EditInfo(welcomeLabel.getText().substring(8).trim() );
-        newInfo.setVisible(true);
+        /**
+         * Edit Info button will take the User to the Edition page and dispose
+         * of the Main Menu. It will also give the name of the User as a
+         * parameter to be used in the greeting label.
+         */
+        EditInfo editInfo = new EditInfo(welcomeLabel.getText().substring(8).trim());
+        editInfo.setVisible(true);
         dispose();
     }//GEN-LAST:event_editInfoButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        // TODO add your handling code here:
+        /**
+         * Logout button will take the user back to the Login page and dispose
+         * of the Main Menu.
+         */
         loginPage newLogin = new loginPage();
         newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_historyActionPerformed
 
     private void calculatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatorButtonActionPerformed
-        // TODO add your handling code here:
-        Calculation newCalcMenu = new Calculation(welcomeLabel.getText().substring(8).trim());
-        newCalcMenu.setVisible(true);
-        dispose();
-                
-    }//GEN-LAST:event_calculatorButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /**
+         * Calculation button will take the user to the Calculation page and
+         * dispose of the Main Menu. It will also give the name of the User as a
+         * parameter to be used in the greeting label.
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        Calculation calcMenu = new Calculation(welcomeLabel.getText().substring(8).trim());
+        calcMenu.setVisible(true);
+        dispose();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenu().setVisible(true);
-            }
-        });
-    }
-
+    }//GEN-LAST:event_calculatorButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calculatorButton;
     private javax.swing.JButton editInfoButton;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton history;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel mainMenuLabel;
     private javax.swing.JLabel title;

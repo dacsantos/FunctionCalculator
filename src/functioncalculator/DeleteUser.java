@@ -20,20 +20,19 @@ import javax.swing.JOptionPane;
 public class DeleteUser extends javax.swing.JFrame {
 
     /**
-     * Creates new form DeleteUser
+     * Creates new form DeleteUser -and apply dimensions to set the window in
+     * the middle of the screen
+     * 
+     * @param admin - name of the current connected Admin for greeting and
+     * tracking purposes
      */
-    public DeleteUser(String username) {
+    public DeleteUser(String admin) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
-         mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + username);
+         mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + admin);
     }
-
-    private DeleteUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +48,7 @@ public class DeleteUser extends javax.swing.JFrame {
         deletionTextField = new javax.swing.JTextField();
         confirmRemoveButton = new javax.swing.JButton();
         warningRegistration = new javax.swing.JLabel();
-        backRegister1 = new javax.swing.JButton();
+        backRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,17 +81,12 @@ public class DeleteUser extends javax.swing.JFrame {
 
         warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        warningRegistration.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                warningRegistrationKeyReleased(evt);
-            }
-        });
 
-        backRegister1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        backRegister1.setText("BACK");
-        backRegister1.addActionListener(new java.awt.event.ActionListener() {
+        backRegister.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        backRegister.setText("BACK");
+        backRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backRegister1ActionPerformed(evt);
+                backRegisterActionPerformed(evt);
             }
         });
 
@@ -113,7 +107,7 @@ public class DeleteUser extends javax.swing.JFrame {
                             .addComponent(confirmRemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(289, 289, 289)
-                        .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,7 +126,7 @@ public class DeleteUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(warningRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
-                .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -140,18 +134,21 @@ public class DeleteUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRemoveButtonActionPerformed
-        // TODO add your handling code here:
-        
+        //This string will hold the username to be deleted.
         String username = deletionTextField.getText().trim();
       
-
+        //Condition to check if the field is not empty.
         if (username.isEmpty()) {
             warningRegistration.setText("*Username for deletion required");
         } else {
 
             try {
+                //connecting to the database
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+                /**
+                 * This query will check if the user exists.
+                 */
                 String check = "Select * from userlogin where username=?;";
 
                 PreparedStatement pstCheck = con.prepareStatement(check);
@@ -159,31 +156,47 @@ public class DeleteUser extends javax.swing.JFrame {
                 pstCheck.setString(1, username);
 
                 ResultSet rs = pstCheck.executeQuery();
-
+                /**
+                 * Condition and error message in case the user does not exist.
+                 * It will also bring the focus back to the field so the user
+                 * can type again.
+                 */
                 if (!rs.next()) {
                     JOptionPane.showMessageDialog(null, "\n Action Not Successful\nUsername doesn't exist!");
                     deletionTextField.setText("");
                     deletionTextField.requestFocus();
                     pstCheck.close();
-
-                } else if(rs.getString("usertype").equals("1")) {
+                /**
+                 * Condition if user to be deleted is an Admin.
+                 * It will show the error message and bring the focus back
+                 * to the field so the user can type again.
+                 */    
+                } else if(rs.getString("userAdmin").equals("YES")) {
                     JOptionPane.showMessageDialog(null, "\n Action Not Successful\nYou can't remove an Admin!");
                     deletionTextField.setText("");
                     deletionTextField.requestFocus();
                     pstCheck.close();
                     
                 } else{
-
+                    /**
+                     * In case the user exists and it is not an Admin.
+                     * We will create another query to remove the user from the
+                     * database.
+                     */
                     String remove = "delete from userlogin where username=?;";
-
+                    //Passing the query to the statement.
                     PreparedStatement pstRemove = con.prepareStatement(remove);
-
+                    //Passing the username as a parameter to complete the query.
                     pstRemove.setString(1, username);
-
+                    //Executing the query.
                     pstRemove.execute();
-
-                    JOptionPane.showMessageDialog(null, "Action Successful\nUser "+username+" removed from database");
                     
+                    /**
+                     * Message of success.
+                     * Clearing and bringing focus back to the field in case
+                     * the Admin wants to remove another user.
+                     */
+                    JOptionPane.showMessageDialog(null, "Action Successful\nUser "+username+" removed from database");
                     deletionTextField.setText("");
                     deletionTextField.requestFocus();
 
@@ -197,61 +210,32 @@ public class DeleteUser extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_confirmRemoveButtonActionPerformed
-
-    private void warningRegistrationKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_warningRegistrationKeyReleased
-        // TODO add your handling code here:
-         
-    }//GEN-LAST:event_warningRegistrationKeyReleased
-
+    /**
+     *  /**
+     * When the user starts typing in the fieldtext again, it will erase its
+     * empty data warning.
+     *
+     * @param evt - Typing
+     */
     private void deletionTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deletionTextFieldKeyReleased
         // TODO add your handling code here:
          warningRegistration.setText("");
     }//GEN-LAST:event_deletionTextFieldKeyReleased
 
-    private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
-        // TODO add your handling code here:
+    private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed
+       /**
+         * Back button will take the admin back to its menu and dispose of the
+         * Listing menu. It will also give the name of the Admin as a parameter
+         * to be used in the greeting label.
+         */
         AdminMenu newInfo = new AdminMenu(mainMenuLabel.getText().substring(30).trim());
         newInfo.setVisible(true);
         dispose();
-    }//GEN-LAST:event_backRegister1ActionPerformed
+    }//GEN-LAST:event_backRegisterActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DeleteUser().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backRegister1;
+    private javax.swing.JButton backRegister;
     private javax.swing.JButton confirmRemoveButton;
     private javax.swing.JLabel deleteTitle;
     private javax.swing.JTextField deletionTextField;

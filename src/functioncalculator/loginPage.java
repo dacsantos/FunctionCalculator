@@ -21,7 +21,9 @@ import javax.swing.JOptionPane;
 public class loginPage extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame
+     * Creates a new form loginPage and apply dimensions to set the window in
+     * the middle of the screen.
+     *
      */
     public loginPage() {
         initComponents();
@@ -69,11 +71,6 @@ public class loginPage extends javax.swing.JFrame {
         passwordLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         passwordLabel.setText("Password:");
 
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
         usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 usernameFieldKeyReleased(evt);
@@ -99,17 +96,7 @@ public class loginPage extends javax.swing.JFrame {
         newUsers.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         newUsers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         newUsers.setText("FOR NEW USERS");
-        newUsers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                newUsersMouseClicked(evt);
-            }
-        });
 
-        passwordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
-            }
-        });
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passwordFieldKeyPressed(evt);
@@ -195,9 +182,10 @@ public class loginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
-
-if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+        /**
+         * These conditions will check if the username or password are empty.
+         */
+        if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
             userWarning.setText("Username is invalid");
             passwordWarning.setText("Password is invalid");
         }
@@ -208,30 +196,50 @@ if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().i
         } else {
 
             try {
+                /**
+                 * Connection to the database.
+                 */
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String sql = "Select * from userlogin where username=? and password=?";
 
+                /**
+                 * Statement that will receive the query. First we will check if
+                 * the username exists in the database
+                 */
                 PreparedStatement pst = con.prepareStatement(sql);
-
+                /**
+                 * Passing username and password parameters.
+                 */
                 pst.setString(1, usernameField.getText());
                 pst.setString(2, passwordField.getText());
 
+                /**
+                 * The Result set will contain the result of the query.
+                 */
                 ResultSet rs = pst.executeQuery();
 
+                /**
+                 * Condition to check if the user is an admin. Getting the data
+                 * from the ResultSet, if userAdmin = YES, we will direct the admin
+                 * to its Menu, if userAdmin = NO, that means it is a regular
+                 * user, we will direct it to the regular menu
+                 */
                 if (rs.next()) {
-                    if (rs.getString("usertype").equals("1")) {
+                    if (rs.getString("userAdmin").equals("YES")) {
 
                         String user = rs.getString("username");
                         AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
                         menu.setVisible(true);
                         dispose();
-                    }else{
-                    
-                    String user = rs.getString("username");
-                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
-                    menu.setVisible(true);
-                    setVisible(false);
+
+                    } else {
+
+                        String user = rs.getString("username");
+                        MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                        menu.setVisible(true);
+                        setVisible(false);
+
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Login Denied");
@@ -246,91 +254,93 @@ if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().i
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameFieldActionPerformed
-
-    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordFieldActionPerformed
-
+    /**
+     * When the user starts typing in the fieldtext again, it will erase its
+     * empty data warning.
+     *
+     * @param evt - Typing
+     */
     private void usernameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyReleased
         // TODO add your handling code here:
         userWarning.setText("");
     }//GEN-LAST:event_usernameFieldKeyReleased
 
+    /**
+     * When the user starts typing in the fieldtext again, it will erase its
+     * empty data warning.
+     *
+     * @param evt - Typing
+     */
     private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyReleased
         // TODO add your handling code here:
         passwordWarning.setText("");
     }//GEN-LAST:event_passwordFieldKeyReleased
-
-    private void newUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newUsersMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newUsersMouseClicked
-
     private void signupButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupButtonMouseClicked
-        // TODO add your handling code here:
+        /**
+         * In case of new users. This button will take them to the registration
+         * page and dispose of the login page.
+         */
         RegistrationPage newUser = new RegistrationPage();
         newUser.setVisible(true);
         dispose();
     }//GEN-LAST:event_signupButtonMouseClicked
 
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
-     if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
-            userWarning.setText("Username is invalid");
-            passwordWarning.setText("Password is invalid");
-        }
-        if (usernameField.getText().trim().isEmpty()) {
-            userWarning.setText("Username is invalid");
-        } else if (passwordField.getText().trim().isEmpty()) {
-            passwordWarning.setText("Password is invalid");
-        } else {
+        /**
+         * This event will do the same thing as the login button. It is just a
+         * shortcut: instead of clicking, the user can just press ENTER.
+         */
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-                String sql = "Select * from userlogin where username=? and password=?";
+            if (usernameField.getText().trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+                userWarning.setText("Username is invalid");
+                passwordWarning.setText("Password is invalid");
+            }
+            if (usernameField.getText().trim().isEmpty()) {
+                userWarning.setText("Username is invalid");
+            } else if (passwordField.getText().trim().isEmpty()) {
+                passwordWarning.setText("Password is invalid");
+            } else {
 
-                PreparedStatement pst = con.prepareStatement(sql);
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+                    String sql = "Select * from userlogin where username=? and password=?";
 
-                pst.setString(1, usernameField.getText());
-                pst.setString(2, passwordField.getText());
+                    PreparedStatement pst = con.prepareStatement(sql);
 
-                ResultSet rs = pst.executeQuery();
+                    pst.setString(1, usernameField.getText());
+                    pst.setString(2, passwordField.getText());
 
-                if (rs.next()) {
-                    if (rs.getString("usertype").equals("1")) {
+                    ResultSet rs = pst.executeQuery();
 
-                        String user = rs.getString("username");
-                        AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
-                        menu.setVisible(true);
-                        dispose();
-                    }else{
-                    
-                    String user = rs.getString("username");
-                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
-                    menu.setVisible(true);
-                    setVisible(false);
+                    if (rs.next()) {
+                        if (rs.getString("userAdmin").equals("YES")) {
+
+                            String user = rs.getString("username");
+                            AdminMenu menu = new AdminMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                            menu.setVisible(true);
+                            dispose();
+                        } else {
+
+                            String user = rs.getString("username");
+                            MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
+                            menu.setVisible(true);
+                            setVisible(false);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Login Denied");
+                        usernameField.setText("");
+                        passwordField.setText("");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Login Denied");
-                    usernameField.setText("");
-                    passwordField.setText("");
+                    con.close();
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-//                    MainMenu menu = new MainMenu(usernameField.getText());
-//                    menu.setVisible(true);
-//                    dispose();
-
-                con.close();
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
             }
         }
-   }
-       
+
     }//GEN-LAST:event_passwordFieldKeyPressed
 
     /**

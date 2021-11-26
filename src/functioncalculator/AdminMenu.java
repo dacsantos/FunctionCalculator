@@ -7,13 +7,6 @@ package functioncalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,19 +15,19 @@ import javax.swing.JOptionPane;
 public class AdminMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdminMenu
+     * Creates new form AdminMenu - and apply dimensions to set the window in
+     * the middle of the screen
+     *
+     * @param admin - name of the current connected Admin for greeting and
+     * tracking purposes
      */
-    public AdminMenu(String username) {
+    public AdminMenu(String admin) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
-        mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + username);
-        welcomeLabel.setText("Welcome, "+username);
-    }
-
-    private AdminMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + admin);
+        welcomeLabel.setText("Welcome, " + admin);
     }
 
     /**
@@ -149,69 +142,47 @@ public class AdminMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        // TODO add your handling code here:
+        /**
+         * Logout button will take the user back to the Login page and dispose
+         * of the Admin Menu.
+         */
         loginPage newLogin = new loginPage();
         newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void editInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoButtonActionPerformed
-        // TODO add your handling code here:
-        EditAdminInfo newInfo = new EditAdminInfo(welcomeLabel.getText().substring(8).trim() );
-        newInfo.setVisible(true);
+        /**
+         * Edit Info button will take the Admin to the Edition page and dispose
+         * of the Admin Menu. It will also give the name of the Admin as a
+         * parameter to be used in the greeting label.
+         */
+        EditAdminInfo EditInfo = new EditAdminInfo(welcomeLabel.getText().substring(8).trim());
+        EditInfo.setVisible(true);
         dispose();
     }//GEN-LAST:event_editInfoButtonActionPerformed
-
     private void removeUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserButtonActionPerformed
-        // TODO add your handling code here:
-        DeleteUser remove = new DeleteUser(welcomeLabel.getText().substring(8).trim());
-        remove.setVisible(true);
+        /**
+         * Remove User button will take the Admin to the Deletion page and
+         * dispose of the Admin Menu. It will also give the name of the Admin as
+         * a parameter to be used in the greeting label.
+         */
+        DeleteUser Remove = new DeleteUser(welcomeLabel.getText().substring(8).trim());
+        Remove.setVisible(true);
         dispose();
     }//GEN-LAST:event_removeUserButtonActionPerformed
 
     private void listOfUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listOfUsersButtonActionPerformed
-
-        ListOfUsers newList = new ListOfUsers(welcomeLabel.getText().substring(8).trim());
-        newList.setVisible(true);
+        /**
+         * Lisf of Users button will take the Admin to the Listing page and
+         * dispose of the Admin Menu. It will also give the name of the Admin as
+         * a parameter to be used in the greeting label.
+         */
+        ListOfUsers List = new ListOfUsers(welcomeLabel.getText().substring(8).trim());
+        List.setVisible(true);
         dispose();
-
-
     }//GEN-LAST:event_listOfUsersButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editInfoButton;
