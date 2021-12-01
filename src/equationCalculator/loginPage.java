@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package functioncalculator;
+package equationCalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -58,7 +58,7 @@ public class loginPage extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Function Calculator");
+        title.setText("Equation Calculator");
         title.setAlignmentY(0.0F);
 
         accessLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -201,7 +201,7 @@ public class loginPage extends javax.swing.JFrame {
                  */
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-                String sql = "Select * from userlogin where username=? and password=?";
+                String sql = "Select * from users where username=? and password=?";
 
                 /**
                  * Statement that will receive the query. First we will check if
@@ -305,7 +305,7 @@ public class loginPage extends javax.swing.JFrame {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-                    String sql = "Select * from userlogin where username=? and password=?";
+                    String sql = "Select * from users where username=? and password=?";
 
                     PreparedStatement pst = con.prepareStatement(sql);
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package functioncalculator;
+package equationCalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -149,7 +149,7 @@ public class DeleteUser extends javax.swing.JFrame {
                 /**
                  * This query will check if the user exists.
                  */
-                String check = "Select * from userlogin where username=?;";
+                String check = "Select * from users where username=?;";
 
                 PreparedStatement pstCheck = con.prepareStatement(check);
 
@@ -183,7 +183,7 @@ public class DeleteUser extends javax.swing.JFrame {
                      * We will create another query to remove the user from the
                      * database.
                      */
-                    String remove = "delete from userlogin where username=?;";
+                    String remove = "delete from users where username=?;";
                     //Passing the query to the statement.
                     PreparedStatement pstRemove = con.prepareStatement(remove);
                     //Passing the username as a parameter to complete the query.

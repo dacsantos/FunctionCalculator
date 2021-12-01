@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package functioncalculator;
+package equationCalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -42,7 +42,7 @@ public class ListOfUsers extends javax.swing.JFrame {
              * This query will collect the information to be displayed in our
              * list.
              */
-            String sql = "SELECT firstname as Name, lastname as Surname, username as Username, userAdmin as 'System Admin' from userlogin;";
+            String sql = "SELECT firstname as Name, lastname as Surname, username as Username, userAdmin as 'System Admin' from users;";
 
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);

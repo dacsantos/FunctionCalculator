@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package functioncalculator;
+package equationCalculator;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -56,7 +56,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Function Calculator");
+        title.setText("Equation Calculator");
         title.setAlignmentY(0.0F);
 
         editInfoButton.setText("EDIT ADMIN INFO");
