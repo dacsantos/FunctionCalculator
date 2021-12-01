@@ -5,31 +5,30 @@
  */
 package Calculations;
 
-import functioncalculator.calcEquation2x2;
-
 /**
  *
  * @author dacsa
  */
-public class twoBytwo implements equationsCalc{
-     
-    double A, B, C, D, E, F;
-   
-    
- 
+public class twoBytwo implements equationsCalc {
+
+    int A, B, C, D, E, F;
+    Integer[][] matrixA = {{A, B},
+    {C, D}};
+    Integer[][] matrixB = {{E},
+    {F}};
+    int det = A * D - B * C;
+    Integer[][] inverse = {{D, -B}, 
+                           {-C, A}};
+    Integer[][] matrixX = new Integer[2][1];
+
     @Override
     public void writeMatrices() {
-        
-        
-        
+
     }
 
-    
     @Override
     public void calcInverse() {
-   
+
     }
-    
-    
-    
+
 }
