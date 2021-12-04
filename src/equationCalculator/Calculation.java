@@ -148,7 +148,7 @@ public class Calculation extends javax.swing.JFrame {
          * variable-equation. It will also give the name of the User as a
          * parameter to be used in the greeting label.
          */
-        calc2x2 newCalc = new calc2x2(welcomeLabel.getText().substring(4).trim());
+        Calc2x2 newCalc = new Calc2x2(welcomeLabel.getText().substring(4).trim());
         newCalc.setVisible(true);
         dispose();
     }//GEN-LAST:event_twobytwoActionPerformed

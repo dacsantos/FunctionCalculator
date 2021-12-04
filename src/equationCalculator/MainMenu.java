@@ -150,13 +150,16 @@ public class MainMenu extends javax.swing.JFrame {
          * Logout button will take the user back to the Login page and dispose
          * of the Main Menu.
          */
-        loginPage newLogin = new loginPage();
+        LoginPage newLogin = new LoginPage();
         newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyActionPerformed
         // TODO add your handling code here:
+        History newList = new History(welcomeLabel.getText().substring(8).trim());
+        newList.setVisible(true);
+        dispose();
     }//GEN-LAST:event_historyActionPerformed
 
     private void calculatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatorButtonActionPerformed

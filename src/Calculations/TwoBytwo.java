@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package Calculations;
-
-import java.io.IOException;
 /**
  *
  * @author dacsa
  */
-public class twoBytwo {
+public class TwoBytwo {
 
     public static double[][] twoBytwo(double A0, double B0, double C0, double D0, double E0, double F0) {
 

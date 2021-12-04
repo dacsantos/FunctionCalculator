@@ -151,7 +151,7 @@ public class AdminMenu extends javax.swing.JFrame {
          * Logout button will take the user back to the Login page and dispose
          * of the Admin Menu.
          */
-        loginPage newLogin = new loginPage();
+        LoginPage newLogin = new LoginPage();
         newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed

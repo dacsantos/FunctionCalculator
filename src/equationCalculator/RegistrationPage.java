@@ -254,7 +254,7 @@ public class RegistrationPage extends javax.swing.JFrame {
          * Back button will take the User back to the login menu and dispose of
          * the Registration menu.
          */
-        loginPage newLogin = new loginPage();
+        LoginPage newLogin = new LoginPage();
         newLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegisterActionPerformed
