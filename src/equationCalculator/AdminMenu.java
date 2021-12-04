@@ -45,7 +45,7 @@ public class AdminMenu extends javax.swing.JFrame {
         listOfUsersButton = new javax.swing.JButton();
         removeUserButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        HistoryOfCalculations = new javax.swing.JButton();
         mainMenuLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,11 +91,11 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("ALL PAST CALCULATIONS");
-        jButton3.setAlignmentY(0.0F);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        HistoryOfCalculations.setText("ALL PAST CALCULATIONS");
+        HistoryOfCalculations.setAlignmentY(0.0F);
+        HistoryOfCalculations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                HistoryOfCalculationsActionPerformed(evt);
             }
         });
 
@@ -112,7 +112,7 @@ public class AdminMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(257, 257, 257)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(HistoryOfCalculations, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(logOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(removeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +137,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(removeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(HistoryOfCalculations, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -188,14 +188,17 @@ public class AdminMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_listOfUsersButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void HistoryOfCalculationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryOfCalculationsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        HistoryOfAllUsers newList = new HistoryOfAllUsers(welcomeLabel.getText().substring(8).trim());
+        newList.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_HistoryOfCalculationsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton HistoryOfCalculations;
     private javax.swing.JButton editInfoButton;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton listOfUsersButton;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel mainMenuLabel;

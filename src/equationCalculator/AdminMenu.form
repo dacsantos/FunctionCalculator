@@ -28,7 +28,7 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jButton3" min="-2" pref="193" max="-2" attributes="0"/>
+                  <Component id="HistoryOfCalculations" min="-2" pref="193" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="logOutButton" alignment="1" max="32767" attributes="0"/>
                       <Component id="removeUserButton" alignment="1" min="-2" pref="193" max="-2" attributes="0"/>
@@ -57,7 +57,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="removeUserButton" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="HistoryOfCalculations" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="logOutButton" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace pref="41" max="32767" attributes="0"/>
@@ -121,13 +121,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logOutButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="HistoryOfCalculations">
       <Properties>
         <Property name="text" type="java.lang.String" value="ALL PAST CALCULATIONS"/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HistoryOfCalculationsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="mainMenuLabel">
