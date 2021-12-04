@@ -126,6 +126,9 @@
         <Property name="text" type="java.lang.String" value="ALL PAST CALCULATIONS"/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="mainMenuLabel">
       <Properties>

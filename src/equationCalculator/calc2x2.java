@@ -11,12 +11,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import Calculations.twoBytwo;
+import java.sql.ResultSet;
+import java.text.DecimalFormat;
 
 /**
  *
  * @author dacsa
  */
-public class calcEquation2x2 extends javax.swing.JFrame {
+public class calc2x2 extends javax.swing.JFrame {
 
     /**
      * Creates new form calcEquation2x2 - and apply dimensions to set the window
@@ -25,7 +28,7 @@ public class calcEquation2x2 extends javax.swing.JFrame {
      * @param username - name of the current connected User for greeting and
      * tracking purposes
      */
-    public calcEquation2x2(String username) {
+    public calc2x2(String username) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
@@ -56,7 +59,7 @@ public class calcEquation2x2 extends javax.swing.JFrame {
         varYresult = new javax.swing.JLabel();
         saveCalcButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
-        newCalcButton = new javax.swing.JButton();
+        clearFieldsButton = new javax.swing.JButton();
         calculateButton = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
         varA = new javax.swing.JTextField();
@@ -119,11 +122,11 @@ public class calcEquation2x2 extends javax.swing.JFrame {
             }
         });
 
-        newCalcButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        newCalcButton.setText("NEW");
-        newCalcButton.addActionListener(new java.awt.event.ActionListener() {
+        clearFieldsButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        clearFieldsButton.setText("CLEAR");
+        clearFieldsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCalcButtonActionPerformed(evt);
+                clearFieldsButtonActionPerformed(evt);
             }
         });
 
@@ -166,7 +169,7 @@ public class calcEquation2x2 extends javax.swing.JFrame {
                         .addGap(113, 113, 113)
                         .addComponent(saveCalcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
-                        .addComponent(newCalcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clearFieldsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -255,7 +258,7 @@ public class calcEquation2x2 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveCalcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newCalcButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clearFieldsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -268,7 +271,99 @@ public class calcEquation2x2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveCalcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCalcButtonActionPerformed
-        // TODO add your handling code here:
+
+        if (varXresult.getText().length() < 5) {
+            JOptionPane.showMessageDialog(null, "\nThere is nothing to save");
+        } else {
+            int A = 0, B = 0, C = 0, D = 0, E = 0, F = 0;
+            int iduser = 0;
+            String equation1, equation2;
+            String result = varXresult.getText() + " " + varYresult.getText();
+            try {
+                if (validateIsNotNull()) {
+                    A = converter(varA.getText());
+                    B = converter(varB.getText());
+                    C = converter(varC.getText());
+                    D = converter(varD.getText());
+                    E = converter(varE.getText());
+                    F = converter(varF.getText());
+
+                    if (B < 0 && D < 0) {
+                        equation1 = A + "x" + B + "y" + "=" + E;
+                        equation2 = C + "x" + D + "y" + "=" + F;
+
+                    } else if (B < 0 && D > 0) {
+                        equation1 = A + "x" + B + "y" + "=" + E;
+                        equation2 = C + "x" + "+" + D + "y" + "=" + F;
+                    } else if (B > 0 && D < 0) {
+                        equation1 = A + "x" + "+" + B + "y" + "=" + E;
+                        equation2 = C + "x" + D + "y" + "=" + F;
+                    } else {
+                        equation1 = A + "x" + "+" + B + "y" + "=" + E;
+                        equation2 = C + "x" + "+" + D + "y" + "=" + F;
+                    }
+
+                    try {
+                        //Connecting to the database
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
+
+                        String check = "SELECT * FROM calculator WHERE equation1=? and equation2=? and results=?";
+                        PreparedStatement pstCheck = con.prepareStatement(check);
+
+                        pstCheck.setString(1, equation1);
+                        pstCheck.setString(2, equation2);
+                        pstCheck.setString(3, result);
+
+                        ResultSet rs = pstCheck.executeQuery();
+
+                        if (rs.next()) {
+                            JOptionPane.showMessageDialog(null, "\nEquation already saved!\nCheck your history.");
+                            clearVars();
+                        } else {
+
+                            String checkUser = "SELECT iduser FROM users WHERE username=?";
+                            String addEquation = "INSERT INTO calculator (iduser, equation1, equation2, results) VALUES (?, ?, ?, ?)";
+
+                            PreparedStatement pst = con.prepareStatement(checkUser);
+
+                            pst.setString(1, welcomeLabel.getText().substring(4).trim());
+
+                            rs = pst.executeQuery();
+
+                            if (rs.next()) {
+                                iduser = rs.getInt("iduser");
+                            }
+
+                            pst = con.prepareStatement(addEquation);
+
+                            pst.setInt(1, iduser);
+                            pst.setString(2, equation1);
+                            pst.setString(3, equation2);
+                            pst.setString(4, result);
+
+                            if (pst.executeUpdate() != 0) {
+                                JOptionPane.showMessageDialog(null, "\nEquations Saved");
+                                clearVars();
+                                pst.close();
+
+                            } else {
+
+                                JOptionPane.showMessageDialog(null, "Something went wrong");
+
+                                pst.close();
+                                con.close();
+                            }
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e + "\nSaving Not Successful");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "\nOne or more values are not numbers or are missing!\nTry again!");
+                clearVars();
+            }
+        }
 
     }//GEN-LAST:event_saveCalcButtonActionPerformed
 
@@ -283,119 +378,83 @@ public class calcEquation2x2 extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void newCalcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newCalcButtonActionPerformed
+    private void clearFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFieldsButtonActionPerformed
         /**
          * This button clears the fields so the user can start over.
          */
-        Object[] options = {"Save your result",
-            "Clear without saving"};
-        int n = JOptionPane.showOptionDialog(calcEquation2x2.this,//parent container of JOptionPane
-                "What would you like to do?",
-                " You are clearing the fields ",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,//do not use a custom Icon
-                options,//the titles of buttons
-                options[1]);//default button title
-        if (n == JOptionPane.YES_OPTION) {
-            //Insert code to save the result
-            if (varXresult.getText().length() > 4) {
-                
-                System.out.println("salva");
-            } else {
-                System.out.println();
-                varA.setText("");
-                varB.setText("");
-                varC.setText("");
-                varD.setText("");
-                varE.setText("");
-                varF.setText("");
-                varXresult.setText("X = ");
-                varYresult.setText("Y = ");
-                JOptionPane.showMessageDialog(null, "Nada pra salvar aqui fio" + "\nFields were cleared, you can try again.");
-            }
+                                //Option 1              Option 2
+        Object[] options = {"Save your result", "Clear without saving"};
+        int opt = JOptionPane.showOptionDialog(calc2x2.this, "What would you like to do?", " You are clearing the fields ",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
+        if (opt == JOptionPane.YES_OPTION) {
+            //Option Save Results
+            saveCalcButtonActionPerformed(null);
         } else {
-            System.out.println("Deu ruim aqui");
+            //Option clear without saving
+            clearVars();
         }
 
-    }//GEN-LAST:event_newCalcButtonActionPerformed
+    }//GEN-LAST:event_clearFieldsButtonActionPerformed
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
         // TODO add your handling code here:
-        int A = 0, B = 0, C = 0, D = 0, E = 0, F = 0;
-        String equation1, equation2;
+        double A, B, C, D, E, F;
+//        String equation1, equation2;
         try {
 
-            A = Integer.parseInt(varA.getText());
-            B = Integer.parseInt(varB.getText());
-            C = Integer.parseInt(varC.getText());
-            D = Integer.parseInt(varD.getText());
-            E = Integer.parseInt(varE.getText());
-            F = Integer.parseInt(varF.getText());
+            A = Double.parseDouble(varA.getText());
+            B = Double.parseDouble(varB.getText());
+            C = Double.parseDouble(varC.getText());
+            D = Double.parseDouble(varD.getText());
+            E = Double.parseDouble(varE.getText());
+            F = Double.parseDouble(varF.getText());
 
             if (A == 0 || B == 0 || C == 0 || D == 0) {
                 JOptionPane.showMessageDialog(null, "Values of X and Y CANNOT be 0");
             } else {
-                if (B < 0 && D < 0) {
-                    equation1 = A + "x" + B + "y" + "=" + E;
-                    equation2 = C + "x" + D + "y" + "=" + F;
+                //TWOBYTWO METHOD
+                double[][] result = twoBytwo.twoBytwo(A, B, C, D, E, F);
+                DecimalFormat df = new DecimalFormat("####0.00");
 
-//--------------------------------------------------------------------------------------------------
-                    try {
-                        //Connecting to the database
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
-                        String addEquation = "INSERT INTO users (username, password) VALUES (?, ?)";
-                    
-                        PreparedStatement pstAddEq = con.prepareStatement(addEquation);
+                for (int i = 0; i < 2; i++) {
+                    for (int j = 0; j < 1; j++) {
+                        Double d = result[i][j];
+                        String str = String.valueOf(d).split("\\.")[1];
+                        if (i == 0) {
+                            if (str.equals("0")) {
+                                varXresult.setText("X = " + d.longValue());
+                            } else {
+                                varXresult.setText("X = " + df.format(result[0][0]));
+                            }
+                        } else if (i == 1) {
+                            if (str.equals("0")) {
+                                varYresult.setText("Y = " + d.longValue());
+                            } else {
+                                varYresult.setText("Y = " + df.format(result[1][0]));
 
-                        pstAddEq.setString(1, equation1);
-                        pstAddEq.setString(2, equation2);
-
-
-                        if (pstAddEq.executeUpdate()!=0) {
-                            JOptionPane.showMessageDialog(null, "\nEquations Saved");
-                            pstAddEq.close();
-
-                        } else {
-                           
-
-                            JOptionPane.showMessageDialog(null, "Num deu");
-
-
-                            pstAddEq.close();
-                            con.close();
+                            }
                         }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e + "\nRegistration Not Successful");
+
                     }
 
-//--------------------------------------------------------------------------------------------------
-//                    System.out.println(A + "x" + B + "y" + "=" + E);
-//                   System.out.println(C + "x" + D + "y" + "=" + F);
-
-                } else if (B < 0 && D > 0) {
-                    System.out.println(A + "x" + B + "y" + "=" + E);
-                    System.out.println(C + "x" + "+" + D + "y" + "=" + F);
-                } else if (B > 0 && D < 0) {
-                    System.out.println(A + "x" + "+" + B + "y" + "=" + E);
-                    System.out.println(C + "x" + D + "y" + "=" + F);
-                } else {
-                    System.out.println(A + "x" + "+" + B + "y" + "=" + E);
-                    System.out.println(C + "x" + "+" + D + "y" + "=" + F);
                 }
+
             }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "\nOne or more values are not numbers or are missing!\nTry again!");
+            clearVars();
         }
+
+
     }//GEN-LAST:event_calculateButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton calculateButton;
+    public javax.swing.JButton calculateButton;
+    private javax.swing.JButton clearFieldsButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -406,7 +465,6 @@ public class calcEquation2x2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JButton newCalcButton;
     private javax.swing.JButton saveCalcButton;
     private javax.swing.JLabel title;
     private javax.swing.JTextField varA;
@@ -420,4 +478,34 @@ public class calcEquation2x2 extends javax.swing.JFrame {
     private javax.swing.JLabel warning;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
+
+    private void clearVars() {
+        varA.setText("");
+        varB.setText("");
+        varC.setText("");
+        varD.setText("");
+        varE.setText("");
+        varF.setText("");
+        varXresult.setText("X = ");
+        varYresult.setText("Y = ");
+
+    }
+
+    private Integer converter(String x) {
+        return (x == null || x.isEmpty()) ? 0 : Integer.parseInt(x);
+    }
+
+    private boolean validateIsNotNull() {
+
+        int A, B, C, D, E, F;
+
+        A = Integer.parseInt(varA.getText());
+        B = Integer.parseInt(varB.getText());
+        C = Integer.parseInt(varC.getText());
+        D = Integer.parseInt(varD.getText());
+        E = Integer.parseInt(varE.getText());
+        F = Integer.parseInt(varF.getText());
+        return !(varA.getText().isEmpty() || varB.getText().isEmpty() || varC.getText().isEmpty() || varD.getText().isEmpty() || varE.getText().isEmpty() || varF.getText().isEmpty());
+
+    }
 }

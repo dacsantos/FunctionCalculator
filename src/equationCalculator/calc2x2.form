@@ -34,7 +34,7 @@
                       <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                       <Component id="saveCalcButton" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Component id="newCalcButton" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="clearFieldsButton" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="backButton" min="-2" pref="140" max="-2" attributes="0"/>
                   </Group>
@@ -141,7 +141,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveCalcButton" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                   <Component id="backButton" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                  <Component id="newCalcButton" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                  <Component id="clearFieldsButton" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
@@ -262,15 +262,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="newCalcButton">
+    <Component class="javax.swing.JButton" name="clearFieldsButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="NEW"/>
+        <Property name="text" type="java.lang.String" value="CLEAR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newCalcButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearFieldsButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="calculateButton">
@@ -283,6 +283,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calculateButtonActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="welcomeLabel">
       <Properties>
