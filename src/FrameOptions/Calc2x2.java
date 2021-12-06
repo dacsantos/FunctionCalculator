@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Frames;
+package FrameOptions;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-import Calculations.TwoBytwo;
+import Calculations.TwoByTwo;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
 
@@ -398,7 +398,6 @@ public class Calc2x2 extends javax.swing.JFrame {
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "\nOne or more values are not numbers or are missing!\nTry again!");
-                clearVars();
             }
         }
 
@@ -451,12 +450,13 @@ public class Calc2x2 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Values of X and Y CANNOT be 0");
             } else {
                 //TWOBYTWO METHOD
-                boolean valid = true;
-                double[][] result = TwoBytwo.twoBytwo(valid, A, B, C, D, E, F);
+                double[][] result = TwoByTwo.twoBytwo(A, B, C, D, E, F);
                 
-                if(!valid==true){
-                   JOptionPane.showMessageDialog(null, "Determinant is equal to zero!\nEquation cannot be computed!");
-                   clearVars();
+                
+                if(result[0][0] == 0 && result[1][0]==0){
+                    labelResult.setText("Result: indeterminate!");
+                    varXresult.setText("X = 0");
+                    varYresult.setText("Y = 0");
                 }else{
                 DecimalFormat df = new DecimalFormat("####0.00");
 

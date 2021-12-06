@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Frames;
+package FrameOptions;
 
+import FrameMenus.AdminMenu;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Frames;
+package FrameOptions;
 
+import FrameMenus.AdminMenu;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import Utilities.FillTable;
 
@@ -29,7 +29,7 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
         welcomeLabel.setText("Hi, " + admin);
-        
+
         try {
             //Connecting to the database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -38,24 +38,23 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
              * This query will collect the information to be displayed in our
              * list.
              */
-            String calculations = "SELECT calculator.equation1 as 'Equation 1', calculator.equation2 as 'Equation 2', calculator.equation3 as 'Equation 3', calculator.results as Result, users.username as 'Performed by' from calculator inner join users on calculator.iduser=users.iduser order by users.username asc, equation3 desc;";
+            String calculations = "SELECT calculator.equation1 as 'Equation 1', calculator.equation2 as 'Equation 2', "
+                    + "calculator.equation3 as 'Equation 3', calculator.results as Result, users.username as 'Performed by' "
+                    + "from calculator inner join users on calculator.iduser=users.iduser order by users.username asc, "
+                    + "equation3 desc;";
 
             PreparedStatement pst = con.prepareStatement(calculations);
             pst.execute();
-            //ResultSet rs = pst.executeQuery();
             /**
-             * We imported DBUTILS to create this table and display the list of
-             * users. It will get the result data from our ResultSet and
-             * populate our table.
+             * Using FillTable to create this table and display the list of
+             * users.
              */
-            FillTable.FillTable(tableOfUsers, calculations);
-
+            FillTable.FillTable(historyOfUsersCalculations, calculations);
             con.close();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
     }
 
     /**
@@ -71,7 +70,7 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         backRegister1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableOfUsers = new javax.swing.JTable();
+        historyOfUsersCalculations = new javax.swing.JTable();
         welcomeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,9 +93,9 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
             }
         });
 
-        tableOfUsers.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tableOfUsers.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        tableOfUsers.setModel(new javax.swing.table.DefaultTableModel(
+        historyOfUsersCalculations.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        historyOfUsersCalculations.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        historyOfUsersCalculations.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -112,14 +111,14 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableOfUsers.setGridColor(new java.awt.Color(255, 102, 102));
-        tableOfUsers.setRowHeight(25);
-        tableOfUsers.setRowMargin(4);
-        tableOfUsers.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        tableOfUsers.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tableOfUsers);
-        if (tableOfUsers.getColumnModel().getColumnCount() > 0) {
-            tableOfUsers.getColumnModel().getColumn(4).setResizable(false);
+        historyOfUsersCalculations.setGridColor(new java.awt.Color(255, 102, 102));
+        historyOfUsersCalculations.setRowHeight(25);
+        historyOfUsersCalculations.setRowMargin(4);
+        historyOfUsersCalculations.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        historyOfUsersCalculations.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(historyOfUsersCalculations);
+        if (historyOfUsersCalculations.getColumnModel().getColumnCount() > 0) {
+            historyOfUsersCalculations.getColumnModel().getColumn(4).setResizable(false);
         }
 
         welcomeLabel.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
@@ -163,19 +162,19 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
 
     private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
         /**
-        * Back button will take the user back to its menu and dispose of the
-        * Listing menu. It will also give the name of the Username as a parameter
-        * to be used in the greeting label.
-        */
+         * Back button will take the user back to its menu and dispose of the
+         * Listing menu. It will also give the name of the Username as a
+         * parameter to be used in the greeting label.
+         */
         AdminMenu menu = new AdminMenu(welcomeLabel.getText().substring(4).trim());
         menu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegister1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister1;
+    private javax.swing.JTable historyOfUsersCalculations;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel listLabel;
-    private javax.swing.JTable tableOfUsers;
     private javax.swing.JLabel title;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

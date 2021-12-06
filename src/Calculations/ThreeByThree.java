@@ -23,11 +23,6 @@ public class ThreeByThree {
                 G = G0, H = H0, I = I0,
                 J = J0, K = K0, L = L0;
 
-//        double A = 1, B = 1, C = 1, 
-//               D = 2, E = 3, F = 5, 
-//               G = 1, H = -5, I = 6,
-//                
-//               J = 2, K = 11, L = 29;
 //Matrix A ja invertida (A-1)
         double[][] matrixA = new double[3][3];
         matrixA[0][0] = A;
@@ -73,7 +68,6 @@ public class ThreeByThree {
             System.out.println();
         }
 
-//         System.out.println(det);
         double cofactorTranspose[][] = new double[3][3];
 
         if (det == 0) {
@@ -106,14 +100,7 @@ public class ThreeByThree {
                 sum = 0;
             }
         }
-
-//        System.out.println("Result 3x3");
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 1; j++) {
-//                System.out.print("  "+matrixAB[i][j]);  
-//            }
-//           System.out.println(); 
-//        }
+        
         DecimalFormat df = new DecimalFormat("####0.00");
 
         for (double i[] : matrixXAB) {

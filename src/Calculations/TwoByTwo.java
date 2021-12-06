@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 package Calculations;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dacsa
  */
-public class TwoBytwo {
+public class TwoByTwo {
 
-    public static double[][] twoBytwo(boolean valid, double A0, double B0, double C0, double D0, double E0, double F0) {
+    public static double[][] twoBytwo(double A0, double B0, double C0, double D0, double E0, double F0) {
 
-       // Map<doube[][], Person> result = new HashMap<>();
-        
         double A = A0, B = B0, C = C0, D = D0, E = E0, F = F0;
 
 //Matrix A ja invertida (A-1)
@@ -27,10 +28,7 @@ public class TwoBytwo {
         double[][] matrixB = new double[2][1];
         matrixB[0][0] = E;
         matrixB[1][0] = F;
-//       {{2,-3},
-//        {3,8}};
-//    {{2},
-//     {3}};
+
 //X
         double[][] matrixX = new double[2][1];
 
@@ -46,12 +44,6 @@ public class TwoBytwo {
         inverse[1][0] = C * (-1);
 
         //X = A-1*B
-// ----------------------- i[0] j[0]
-//------------------------ i[0] j[1]
-//------------------------ k=0
-//------------------------ i[1] j[0]
-//------------------------ i[1] j[1]
-//------------------------ k=1
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 1; j++) {
                 for (int k = 0; k < 2; k++) {
@@ -82,10 +74,8 @@ public class TwoBytwo {
         double det = (A * D) - (B * C);
         //Condition to check if the determinat is equal to zero
         if (det == 0) {
-            System.out.println("Determinant is equal to zero!\nEquation cannot be computed!");
-            valid = false;
+            JOptionPane.showMessageDialog(null, "Determinant is equal to zero!\nEquation cannot be computed!");
         } else {
-            valid=true;
             matrixX[0][0] = (1 / det) * matrixAB[0][0];
             matrixX[1][0] = (1 / det) * matrixAB[1][0];
 
@@ -98,10 +88,10 @@ public class TwoBytwo {
 
                     if (str.equals("0")) {
                         System.out.println(" " + d.longValue());
-                        
+
                     } else {
                         System.out.println(" " + j);
-                        
+
                     }
                     System.out.println();
                 }

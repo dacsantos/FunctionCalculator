@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Frames;
+package FrameOptions;
 
+import FrameMenus.MainMenu;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -17,23 +18,21 @@ import javax.swing.JOptionPane;
  *
  * @author dacsa
  */
-public class EditAdminInfo extends javax.swing.JFrame {
+public class EditInfo extends javax.swing.JFrame {
 
     /**
-     * Creates new form EditAdminInfo - and apply dimensions to set the window
-     * in the middle of the screen
-     *
-     * @param admin - name of the current connected Admin for greeting and
-     * tracking purposes
+     * Creates new form EditInfo - and apply dimensions to set the window in
+     * the middle of the screen
+     * 
+     * @param username - name of the current connected User for greeting and tracking purposes 
      */
-    public EditAdminInfo(String admin) {
+    public EditInfo(String username) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
-        welcomeLabel.setText("Hi, " + admin);
+        welcomeLabel.setText("Hi, " + username);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,27 +42,55 @@ public class EditAdminInfo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        usernameField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        warningRegistration = new javax.swing.JLabel();
         firstNameField = new javax.swing.JTextField();
-        backRegister = new javax.swing.JButton();
         lastNameField = new javax.swing.JTextField();
-        welcomeLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         mainMenuLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        warningRegistration = new javax.swing.JLabel();
         saveRegister = new javax.swing.JButton();
+        backRegister = new javax.swing.JButton();
+        welcomeLabel = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        warningRegistration.setForeground(new java.awt.Color(255, 51, 51));
+        warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("First Name:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Last Name:");
+
+        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Equation Calculator");
+        title.setAlignmentY(0.0F);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Username:");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mainMenuLabel.setText("EDIT YOUR INFORMATION");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Password:");
+
+        saveRegister.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        saveRegister.setText("SAVE");
+        saveRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveRegisterActionPerformed(evt);
+            }
+        });
 
         backRegister.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backRegister.setText("BACK");
@@ -77,38 +104,6 @@ public class EditAdminInfo extends javax.swing.JFrame {
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Hi");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("First Name:");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Last Name:");
-
-        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Equation Calculator");
-        title.setAlignmentY(0.0F);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Username:");
-
-        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainMenuLabel.setText("EDIT YOUR INFORMATION");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Password:");
-
-        warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        saveRegister.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        saveRegister.setText("SAVE");
-        saveRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveRegisterActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,7 +113,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(saveRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(256, 256, 256)
                         .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -128,7 +123,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
                         .addComponent(lastNameField))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +159,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
                         .addGap(3, 3, 3)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -184,35 +179,25 @@ public class EditAdminInfo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed
-        /**
-         * Back button will take the admin back to its menu and dispose of the
-         * Edition menu. It will also give the name of the Admin as a parameter
-         * to be used in the greeting label.
-         */
-        AdminMenu menu = new AdminMenu(welcomeLabel.getText().substring(4).trim());
-        menu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_backRegisterActionPerformed
-
     private void saveRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegisterActionPerformed
-        /**
+         /**
          * This button will save the new data typed.
          */
 
-        //Getting the data typed and inputting into variables.
+        //Getting the data typed and inputting into variables.       
         String name = firstNameField.getText().trim();
         String lastname = lastNameField.getText().trim();
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
-
+        
+        
         //This condition will verify if any of the fields are empty.
         if (name.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()) {
             warningRegistration.setText("All fields are required, please complete your details.");
         } else {
 
             try {
-                //Connecting to the database
+                 //Connecting to the database
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String check = "Select * from users where username=?";
@@ -225,6 +210,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
                 pstCheck.setString(1, usernameField.getText());
 
                 ResultSet rs = pstCheck.executeQuery();
+                
                 /**
                  * Condition in case username is already taken.
                  */
@@ -240,7 +226,7 @@ public class EditAdminInfo extends javax.swing.JFrame {
                     String add = "update users set username=?, password=?, firstname=?, lastname=? where username=?";
 
                     PreparedStatement pstAdd = con.prepareStatement(add);
-
+                    
                     /**
                      * Passing the variables with the new info. -- Name and
                      * Lastname were also set to have a first letter uppercase.
@@ -251,18 +237,20 @@ public class EditAdminInfo extends javax.swing.JFrame {
                     pstAdd.setString(2, password);
                     pstAdd.setString(3, name.substring(0, 1).toUpperCase() + name.substring(1));
                     pstAdd.setString(4, lastname.substring(0, 1).toUpperCase() + lastname.substring(1));
-                    pstAdd.setString(5, welcomeLabel.getText().substring(4).trim());
+                    pstAdd.setString(5,welcomeLabel.getText().substring(4).trim());
 
                     pstAdd.execute();
 
                     JOptionPane.showMessageDialog(null, "Update Successful");
                     /**
-                     * This will take the Admin back to its Menu after editing
-                     * its info. -- It will also pass the username, with first
-                     * letter uppercase, as parameter to be used in the greeting
-                     * label and for tracking the current user
+                     * This will take the User back to its Menu after editing
+                     * its info.
+                     * -- It will also pass the username, with first
+                     * letter uppercase, as parameter to be used
+                     * in the greeting label and for tracking the current user
                      */
-                    AdminMenu menu = new AdminMenu(username.substring(0, 1).toUpperCase() + username.substring(1));
+                    String user = username;
+                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
                     menu.setVisible(true);
                     setVisible(false);
 
@@ -275,6 +263,17 @@ public class EditAdminInfo extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_saveRegisterActionPerformed
+
+    private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed
+        /**
+         * Back button will take the User back to its menu and dispose of the
+         * Edition menu. It will also give the name of the User as a parameter
+         * to be used in the greeting label.
+         */
+        MainMenu menu = new MainMenu(welcomeLabel.getText().substring(4).trim());
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backRegisterActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister;
     private javax.swing.JTextField firstNameField;
@@ -282,14 +281,12 @@ public class EditAdminInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel mainMenuLabel;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton saveRegister;
     private javax.swing.JLabel title;
     private javax.swing.JTextField usernameField;
-    private javax.swing.JTextField usernameField2;
     private javax.swing.JLabel warningRegistration;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
