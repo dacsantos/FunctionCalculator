@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package equationCalculator;
+package Frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -17,19 +17,21 @@ import javax.swing.JOptionPane;
  *
  * @author dacsa
  */
-public class RegistrationPage extends javax.swing.JFrame {
+public class EditInfo extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegistrationPage - and apply dimensions to set the
-     * window in the middle of the screen
+     * Creates new form EditInfo - and apply dimensions to set the window in
+     * the middle of the screen
+     * 
+     * @param username - name of the current connected User for greeting and tracking purposes 
      */
-    public RegistrationPage() {
+    public EditInfo(String username) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        welcomeLabel.setText("Hi, " + username);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,30 +41,26 @@ public class RegistrationPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        title = new javax.swing.JLabel();
-        mainMenuLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        saveRegister = new javax.swing.JButton();
-        backRegister = new javax.swing.JButton();
         warningRegistration = new javax.swing.JLabel();
         firstNameField = new javax.swing.JTextField();
         lastNameField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
+        mainMenuLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        saveRegister = new javax.swing.JButton();
+        backRegister = new javax.swing.JButton();
+        welcomeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Equation Calculator");
-        title.setAlignmentY(0.0F);
-
-        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainMenuLabel.setText("REGISTRATION");
+        warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        warningRegistration.setForeground(new java.awt.Color(255, 51, 51));
+        warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("First Name:");
@@ -70,8 +68,17 @@ public class RegistrationPage extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Last Name:");
 
+        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Equation Calculator");
+        title.setAlignmentY(0.0F);
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Username:");
+
+        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mainMenuLabel.setText("EDIT YOUR INFORMATION");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Password:");
@@ -92,14 +99,16 @@ public class RegistrationPage extends javax.swing.JFrame {
             }
         });
 
-        warningRegistration.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        warningRegistration.setForeground(new java.awt.Color(255, 51, 51));
-        warningRegistration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        welcomeLabel.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        welcomeLabel.setText("Hi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mainMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -112,10 +121,6 @@ public class RegistrationPage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lastNameField))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(firstNameField))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -123,27 +128,32 @@ public class RegistrationPage extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usernameField)
                             .addComponent(passwordField)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(firstNameField))
                     .addComponent(warningRegistration, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(78, Short.MAX_VALUE))
-            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(mainMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(title)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(mainMenuLabel)
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)))
                 .addGap(18, 18, 18)
@@ -162,30 +172,31 @@ public class RegistrationPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegisterActionPerformed
-        /**
+         /**
          * This button will save the new data typed.
          */
 
-        //Getting the data typed and inputting into variables. 
+        //Getting the data typed and inputting into variables.       
         String name = firstNameField.getText().trim();
         String lastname = lastNameField.getText().trim();
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
-
+        
+        
         //This condition will verify if any of the fields are empty.
         if (name.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()) {
             warningRegistration.setText("All fields are required, please complete your details.");
         } else {
 
             try {
-                //Connecting to the database
+                 //Connecting to the database
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root");
                 String check = "Select * from users where username=?";
@@ -198,23 +209,23 @@ public class RegistrationPage extends javax.swing.JFrame {
                 pstCheck.setString(1, usernameField.getText());
 
                 ResultSet rs = pstCheck.executeQuery();
+                
                 /**
                  * Condition in case username is already taken.
                  */
                 if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "\nRegistration Not Successful\n Username already taken!");
+                    JOptionPane.showMessageDialog(null, "\nUpdate Not Successful\n Username already taken!");
                     pstCheck.close();
 
                 } else {
                     /**
                      * If username is not taken. We will prepare another query,
-                     * this time to insert the new info and create a user.
+                     * this time to update the new info.
                      */
-
-                    String add = "INSERT INTO users (username, password, firstname, lastname) VALUES (?, ?, ?,?)";
+                    String add = "update users set username=?, password=?, firstname=?, lastname=? where username=?";
 
                     PreparedStatement pstAdd = con.prepareStatement(add);
-
+                    
                     /**
                      * Passing the variables with the new info. -- Name and
                      * Lastname were also set to have a first letter uppercase.
@@ -225,17 +236,20 @@ public class RegistrationPage extends javax.swing.JFrame {
                     pstAdd.setString(2, password);
                     pstAdd.setString(3, name.substring(0, 1).toUpperCase() + name.substring(1));
                     pstAdd.setString(4, lastname.substring(0, 1).toUpperCase() + lastname.substring(1));
+                    pstAdd.setString(5,welcomeLabel.getText().substring(4).trim());
 
                     pstAdd.execute();
 
-                    JOptionPane.showMessageDialog(null, "Registration Successful");
+                    JOptionPane.showMessageDialog(null, "Update Successful");
                     /**
-                     * This will take the new User to its Menu after creating
-                     * its profile. -- It will also pass the username, with
-                     * first letter uppercase, as a parameter to be used in the
-                     * greeting label and for tracking the current user
+                     * This will take the User back to its Menu after editing
+                     * its info.
+                     * -- It will also pass the username, with first
+                     * letter uppercase, as parameter to be used
+                     * in the greeting label and for tracking the current user
                      */
-                    MainMenu menu = new MainMenu(username.substring(0, 1).toUpperCase() + username.substring(1));
+                    String user = username;
+                    MainMenu menu = new MainMenu(user.substring(0, 1).toUpperCase() + user.substring(1));
                     menu.setVisible(true);
                     setVisible(false);
 
@@ -243,7 +257,7 @@ public class RegistrationPage extends javax.swing.JFrame {
                     con.close();
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e + "\nRegistration Not Successful");
+                JOptionPane.showMessageDialog(null, e + "\nUpdate Not Successful");
             }
 
         }
@@ -251,11 +265,12 @@ public class RegistrationPage extends javax.swing.JFrame {
 
     private void backRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegisterActionPerformed
         /**
-         * Back button will take the User back to the login menu and dispose of
-         * the Registration menu.
+         * Back button will take the User back to its menu and dispose of the
+         * Edition menu. It will also give the name of the User as a parameter
+         * to be used in the greeting label.
          */
-        LoginPage newLogin = new LoginPage();
-        newLogin.setVisible(true);
+        MainMenu menu = new MainMenu(welcomeLabel.getText().substring(4).trim());
+        menu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegisterActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -272,5 +287,6 @@ public class RegistrationPage extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JTextField usernameField;
     private javax.swing.JLabel warningRegistration;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package equationCalculator;
+package Frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -183,14 +183,20 @@ public class DeleteUser extends javax.swing.JFrame {
                      * We will create another query to remove the user from the
                      * database.
                      */
-                    String remove = "delete from users where username=?;";
+                    int iduser = rs.getInt("iduser");
+                    String removeFK = "delete from calculator where iduser=?;";
+                    String removeUser = "delete from users where username=?;";
                     //Passing the query to the statement.
-                    PreparedStatement pstRemove = con.prepareStatement(remove);
+                    PreparedStatement pstRemove = con.prepareStatement(removeFK);
                     //Passing the username as a parameter to complete the query.
-                    pstRemove.setString(1, username);
+                    pstRemove.setInt(1, iduser);
+                    
                     //Executing the query.
                     pstRemove.execute();
                     
+                    pstRemove = con.prepareStatement(removeUser);
+                    pstRemove.setString(1, username);
+                    pstRemove.execute();
                     /**
                      * Message of success.
                      * Clearing and bringing focus back to the field in case

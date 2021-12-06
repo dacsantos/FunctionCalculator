@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package equationCalculator;
+package Frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,7 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
+import Utilities.FillTable;
 
 /**
  *
@@ -38,17 +38,17 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
              * This query will collect the information to be displayed in our
              * list.
              */
-            String calculations = "SELECT calculator.equation1 as 'Equation 1', calculator.equation2 as 'Equation 2', calculator.equation3 as 'Equation 3', calculator.results as Result, users.username as 'Performed by' from calculator inner join users on calculator.iduser=users.iduser order by users.username;";
+            String calculations = "SELECT calculator.equation1 as 'Equation 1', calculator.equation2 as 'Equation 2', calculator.equation3 as 'Equation 3', calculator.results as Result, users.username as 'Performed by' from calculator inner join users on calculator.iduser=users.iduser order by users.username asc, equation3 desc;";
 
             PreparedStatement pst = con.prepareStatement(calculations);
-
-            ResultSet rs = pst.executeQuery();
+            pst.execute();
+            //ResultSet rs = pst.executeQuery();
             /**
              * We imported DBUTILS to create this table and display the list of
              * users. It will get the result data from our ResultSet and
              * populate our table.
              */
-            tableOfUsers.setModel(DbUtils.resultSetToTableModel(rs));
+            FillTable.FillTable(tableOfUsers, calculations);
 
             con.close();
 
@@ -94,23 +94,33 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
             }
         });
 
+        tableOfUsers.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tableOfUsers.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tableOfUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Perfomed by User", "Equation 1", "Equation 2", "Result"
+                "Equation 1", "Equation 2", "Equation 3", "Result", "Perfomed by User"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tableOfUsers.setGridColor(new java.awt.Color(255, 102, 102));
+        tableOfUsers.setRowHeight(25);
+        tableOfUsers.setRowMargin(4);
+        tableOfUsers.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tableOfUsers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableOfUsers);
+        if (tableOfUsers.getColumnModel().getColumnCount() > 0) {
+            tableOfUsers.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         welcomeLabel.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -120,17 +130,17 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1225, Short.MAX_VALUE)
             .addComponent(listLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(285, 285, 285)
-                .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(542, 542, 542)
+                .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,11 +151,11 @@ public class HistoryOfAllUsers extends javax.swing.JFrame {
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(73, 73, 73)
                 .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap())
         );
 
         pack();

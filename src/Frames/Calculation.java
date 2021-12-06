@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package equationCalculator;
+package Frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -72,6 +72,11 @@ public class Calculation extends javax.swing.JFrame {
         threebythree.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         threebythree.setText("Linear equation with \n3 variables (3x3 Matrix)");
         threebythree.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        threebythree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                threebythreeActionPerformed(evt);
+            }
+        });
 
         backRegister1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backRegister1.setText("BACK");
@@ -152,6 +157,18 @@ public class Calculation extends javax.swing.JFrame {
         newCalc.setVisible(true);
         dispose();
     }//GEN-LAST:event_twobytwoActionPerformed
+
+    private void threebythreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threebythreeActionPerformed
+        /**
+         * This button will take the user to the Calculation of a three
+         * variable-equation. It will also give the name of the User as a
+         * parameter to be used in the greeting label.
+         */
+        Calc3x3 newCalc = new Calc3x3(welcomeLabel.getText().substring(4).trim());
+        newCalc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_threebythreeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backRegister1;
     private javax.swing.JLabel calculationMenuLabel;

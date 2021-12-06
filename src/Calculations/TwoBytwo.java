@@ -10,8 +10,10 @@ package Calculations;
  */
 public class TwoBytwo {
 
-    public static double[][] twoBytwo(double A0, double B0, double C0, double D0, double E0, double F0) {
+    public static double[][] twoBytwo(boolean valid, double A0, double B0, double C0, double D0, double E0, double F0) {
 
+       // Map<doube[][], Person> result = new HashMap<>();
+        
         double A = A0, B = B0, C = C0, D = D0, E = E0, F = F0;
 
 //Matrix A ja invertida (A-1)
@@ -78,11 +80,12 @@ public class TwoBytwo {
         }
 
         double det = (A * D) - (B * C);
-        double x = 0, y = 0;
         //Condition to check if the determinat is equal to zero
         if (det == 0) {
-            System.out.println("Determinat is equal to zero!\nEquation cannot be computed!");
+            System.out.println("Determinant is equal to zero!\nEquation cannot be computed!");
+            valid = false;
         } else {
+            valid=true;
             matrixX[0][0] = (1 / det) * matrixAB[0][0];
             matrixX[1][0] = (1 / det) * matrixAB[1][0];
 

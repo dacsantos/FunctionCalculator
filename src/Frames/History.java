@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package equationCalculator;
+package Frames;
 
+import Utilities.FillTable;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -12,28 +13,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author dacsa
  */
-public class ListOfUsers extends javax.swing.JFrame {
+public class History extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListOfUsers - and apply dimensions to set the window in
-     * the middle of the screen
-     *
-     * @param admin - name of the current connected Admin for greeting and
-     * tracking purposes
+     * Creates new form History
      */
-    public ListOfUsers(String admin) {
+    public History(String user) {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
-        mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + admin);
+        welcomeLabel.setText("Hi, " + user);
 
+        int iduser = 0;
         try {
             //Connecting to the database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -42,22 +39,43 @@ public class ListOfUsers extends javax.swing.JFrame {
              * This query will collect the information to be displayed in our
              * list.
              */
-            String sql = "SELECT firstname as Name, lastname as Surname, username as Username, userAdmin as 'System Admin' from users;";
+            // String check = "SELECT iduser from users where username='dd'";
+            String checkUser = "SELECT iduser FROM users WHERE username=?";
 
-            PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery(sql);
+            PreparedStatement pst = con.prepareStatement(checkUser);
+
+            pst.setString(1, welcomeLabel.getText().substring(4).trim());
+
+            ResultSet rsCheck = pst.executeQuery();
+
+            if (rsCheck.next()) {
+                iduser = rsCheck.getInt("iduser");
+
+            }
+            String results = "SELECT equation1 as 'Equation 1', equation2 as 'Equation 2', equation3 as 'Equation 3', results as Result from calculator where iduser=? order by equation3 desc";
+
+            pst = con.prepareStatement(results);
+            pst.setInt(1, iduser);
+
+            ResultSet rs = pst.executeQuery();
+            String query = String.valueOf(rs.getStatement()).substring(43);
+           System.out.println(query);
+           
+           
             /**
              * We imported DBUTILS to create this table and display the list of
              * users. It will get the result data from our ResultSet and
              * populate our table.
              */
-            tableOfUsers.setModel(DbUtils.resultSetToTableModel(rs));
+            
+             FillTable.FillTable(tableOfResults, query);
 
             con.close();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+
     }
 
     /**
@@ -71,25 +89,21 @@ public class ListOfUsers extends javax.swing.JFrame {
 
         listLabel = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        mainMenuLabel = new javax.swing.JLabel();
         backRegister1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableOfUsers = new javax.swing.JTable();
+        tableOfResults = new javax.swing.JTable();
+        welcomeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         listLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         listLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        listLabel.setText("List of Active Users");
+        listLabel.setText("History of Calculations");
 
         title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Function Calculator");
         title.setAlignmentY(0.0F);
-
-        mainMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mainMenuLabel.setText("ADMIN MENU - Connected Admin:");
 
         backRegister1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backRegister1.setText("BACK");
@@ -100,39 +114,47 @@ public class ListOfUsers extends javax.swing.JFrame {
             }
         });
 
-        tableOfUsers.setModel(new javax.swing.table.DefaultTableModel(
+        tableOfResults.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        tableOfResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Surname", "Username"
+                "Equation 1", "Equation 2", "Equation 3", "Results"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableOfUsers);
+        tableOfResults.setGridColor(new java.awt.Color(255, 153, 153));
+        tableOfResults.setSelectionBackground(new java.awt.Color(255, 102, 102));
+        tableOfResults.setSelectionForeground(new java.awt.Color(255, 255, 153));
+        jScrollPane1.setViewportView(tableOfResults);
+
+        welcomeLabel.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        welcomeLabel.setText("Hi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-            .addComponent(mainMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE)
             .addComponent(listLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(285, 285, 285)
+            .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(460, 460, 460))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,14 +162,14 @@ public class ListOfUsers extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(title)
                 .addGap(18, 18, 18)
-                .addComponent(mainMenuLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(51, 51, 51)
                 .addComponent(backRegister1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -155,11 +177,11 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     private void backRegister1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backRegister1ActionPerformed
         /**
-         * Back button will take the admin back to its menu and dispose of the
-         * Listing menu. It will also give the name of the Admin as a parameter
+         * Back button will take the user back to its menu and dispose of the
+         * Listing menu. It will also give the name of the Username as a parameter
          * to be used in the greeting label.
          */
-        AdminMenu menu = new AdminMenu(mainMenuLabel.getText().substring(30).trim());
+        MainMenu menu = new MainMenu(welcomeLabel.getText().substring(4).trim());
         menu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backRegister1ActionPerformed
@@ -167,8 +189,8 @@ public class ListOfUsers extends javax.swing.JFrame {
     private javax.swing.JButton backRegister1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel listLabel;
-    private javax.swing.JLabel mainMenuLabel;
-    private javax.swing.JTable tableOfUsers;
+    private javax.swing.JTable tableOfResults;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

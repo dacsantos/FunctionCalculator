@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package equationCalculator;
+package Frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -54,7 +54,7 @@ public class Calc2x2 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        labelResult = new javax.swing.JLabel();
         varXresult = new javax.swing.JLabel();
         varYresult = new javax.swing.JLabel();
         saveCalcButton = new javax.swing.JButton();
@@ -97,9 +97,9 @@ public class Calc2x2 extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("e.g. 5x +(-2)y=2 will be 5x - 2y = 2");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Result:");
+        labelResult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelResult.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelResult.setText("Result:");
 
         varXresult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         varXresult.setText("X = ");
@@ -202,10 +202,10 @@ public class Calc2x2 extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(varF, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
                         .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(108, 108, 108))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(116, 116, 116))
+                    .addComponent(labelResult, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -235,9 +235,9 @@ public class Calc2x2 extends javax.swing.JFrame {
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(varA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(varB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,14 +254,14 @@ public class Calc2x2 extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(calculateButton)))
+                        .addGap(62, 62, 62)
+                        .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(59, 59, 59)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelResult, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(varXresult)
@@ -290,10 +290,10 @@ public class Calc2x2 extends javax.swing.JFrame {
         if (varXresult.getText().length() < 5) {
             JOptionPane.showMessageDialog(null, "\nThere is nothing to save");
         } else {
-            int A = 0, B = 0, C = 0, D = 0, E = 0, F = 0;
+            double A, B, C, D, E, F;
             int iduser = 0;
             String equation1, equation2;
-            String result = varXresult.getText() + " " + varYresult.getText();
+            String result = varXresult.getText() + "   " + varYresult.getText();
             try {
                 if (validateIsNotNull()) {
                     A = converter(varA.getText());
@@ -303,19 +303,41 @@ public class Calc2x2 extends javax.swing.JFrame {
                     E = converter(varE.getText());
                     F = converter(varF.getText());
 
-                    if (B < 0 && D < 0) {
-                        equation1 = A + "x" + B + "y" + "=" + E;
-                        equation2 = C + "x" + D + "y" + "=" + F;
+                    Double[] variables = {A, B,
+                        C, D,
+                        E, F};
+                    String[] formated = new String[6];
 
-                    } else if (B < 0 && D > 0) {
-                        equation1 = A + "x" + B + "y" + "=" + E;
-                        equation2 = C + "x" + "+" + D + "y" + "=" + F;
-                    } else if (B > 0 && D < 0) {
-                        equation1 = A + "x" + "+" + B + "y" + "=" + E;
-                        equation2 = C + "x" + D + "y" + "=" + F;
+                    for (int i = 0; i < 6; i++) {
+                        Double d = variables[i];
+                        String str = String.valueOf(d).split("\\.")[1];
+                        
+                        if (str.equals("0")) {
+                            formated[i] = " " + d.longValue();
+                        } else {
+                            formated[i] = " " + variables[i];
+                        }
+                    }
+
+                    for (int i = 0; i < 6; i++) {
+                        System.out.println(formated[i]);
+                    }
+
+                    if (formated[1].contains("-") && formated[3].contains("-")) {
+                        equation1 = formated[0] + "x " + formated[1] + "y " + "= " + formated[4];
+                        equation2 = formated[2] + "x " + formated[3] + "y " + "= " + formated[5];
+
+                    } else if (formated[1].contains("-") && !formated[3].contains("-")) {
+                         equation1 = formated[0] + "x " + formated[1] + "y " + "= " + formated[4];
+                        equation2 = formated[2] + "x " + "+" + formated[3] + "y " + "= " + formated[5];
+                        
+                    } else if (!formated[1].contains("-") && formated[3].contains("-")) {
+                        equation1 = formated[0] + "x " + "+" + formated[1] + "y " + "= " + formated[4];
+                       equation2 = formated[2] + "x " + formated[3] + "y " + "=" + formated[5];
+                       
                     } else {
-                        equation1 = A + "x" + "+" + B + "y" + "=" + E;
-                        equation2 = C + "x" + "+" + D + "y" + "=" + F;
+                        equation1 = formated[0] + "x " + "+" + formated[1] + "y " + "= " + formated[4];
+                        equation2 = formated[2] + "x " + "+" + formated[3] + "y " + "= " + formated[5];
                     }
 
                     try {
@@ -397,7 +419,7 @@ public class Calc2x2 extends javax.swing.JFrame {
         /**
          * This button clears the fields so the user can start over.
          */
-                                //Option 1              Option 2
+        //Option 1              Option 2
         Object[] options = {"Save your result", "Clear without saving"};
         int opt = JOptionPane.showOptionDialog(Calc2x2.this, "What would you like to do?", " You are clearing the fields ",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
@@ -429,7 +451,13 @@ public class Calc2x2 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Values of X and Y CANNOT be 0");
             } else {
                 //TWOBYTWO METHOD
-                double[][] result = TwoBytwo.twoBytwo(A, B, C, D, E, F);
+                boolean valid = true;
+                double[][] result = TwoBytwo.twoBytwo(valid, A, B, C, D, E, F);
+                
+                if(!valid==true){
+                   JOptionPane.showMessageDialog(null, "Determinant is equal to zero!\nEquation cannot be computed!");
+                   clearVars();
+                }else{
                 DecimalFormat df = new DecimalFormat("####0.00");
 
                 for (int i = 0; i < 2; i++) {
@@ -455,6 +483,7 @@ public class Calc2x2 extends javax.swing.JFrame {
 
                 }
 
+            }
             }
 
         } catch (NumberFormatException e) {
@@ -486,8 +515,8 @@ public class Calc2x2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel labelResult;
     private javax.swing.JButton saveCalcButton;
     private javax.swing.JLabel title;
     private javax.swing.JTextField varA;
@@ -514,21 +543,23 @@ public class Calc2x2 extends javax.swing.JFrame {
 
     }
 
-    private Integer converter(String x) {
-        return (x == null || x.isEmpty()) ? 0 : Integer.parseInt(x);
+    private Double converter(String x) {
+        return (x == null || x.isEmpty()) ? 0 : Double.parseDouble(x);
     }
 
     private boolean validateIsNotNull() {
 
-        int A, B, C, D, E, F;
+        double A, B, C, D, E, F;
 
-        A = Integer.parseInt(varA.getText());
-        B = Integer.parseInt(varB.getText());
-        C = Integer.parseInt(varC.getText());
-        D = Integer.parseInt(varD.getText());
-        E = Integer.parseInt(varE.getText());
-        F = Integer.parseInt(varF.getText());
-        return !(varA.getText().isEmpty() || varB.getText().isEmpty() || varC.getText().isEmpty() || varD.getText().isEmpty() || varE.getText().isEmpty() || varF.getText().isEmpty());
+        A = Double.parseDouble(varA.getText());
+        B = Double.parseDouble(varB.getText());
+        C = Double.parseDouble(varC.getText());
+        D = Double.parseDouble(varD.getText());
+        E = Double.parseDouble(varE.getText());
+        F = Double.parseDouble(varF.getText());
+
+        return !(varA.getText().isEmpty() || varB.getText().isEmpty() || varC.getText().isEmpty()
+                || varD.getText().isEmpty() || varE.getText().isEmpty() || varF.getText().isEmpty());
 
     }
 }

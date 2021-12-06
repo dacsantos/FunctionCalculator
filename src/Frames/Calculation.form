@@ -119,6 +119,9 @@
         <Property name="text" type="java.lang.String" value="Linear equation with &#xa;3 variables (3x3 Matrix)"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="threebythreeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="backRegister1">
       <Properties>
