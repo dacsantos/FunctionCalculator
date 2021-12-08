@@ -11,6 +11,7 @@ import FrameOptions.HistoryOfAllUsers;
 import FrameOptions.ListOfUsers;
 import FrameOptions.LoginPage;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 /**
@@ -33,6 +34,9 @@ public class AdminMenu extends javax.swing.JFrame {
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
         mainMenuLabel.setText("ADMIN MENU - Connected Admin: " + admin);
         welcomeLabel.setText("Welcome, " + admin);
+        Image icon = Toolkit.getDefaultToolkit().getImage("DK1.png");  
+        this.setIconImage(icon); 
+
     }
 
     /**
@@ -45,24 +49,20 @@ public class AdminMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         welcomeLabel = new javax.swing.JLabel();
-        title = new javax.swing.JLabel();
         editInfoButton = new javax.swing.JButton();
         listOfUsersButton = new javax.swing.JButton();
         removeUserButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
         HistoryOfCalculations = new javax.swing.JButton();
         mainMenuLabel = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Admin");
 
         welcomeLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Welcome, Admin! ");
-
-        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Equation Calculator");
-        title.setAlignmentY(0.0F);
 
         editInfoButton.setText("EDIT ADMIN INFO");
         editInfoButton.setAlignmentY(0.0F);
@@ -108,11 +108,15 @@ public class AdminMenu extends javax.swing.JFrame {
         mainMenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mainMenuLabel.setText("ADMIN MENU - Connected Admin:");
 
+        title.setFont(new java.awt.Font("Papyrus", 1, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Equation Calculator");
+        title.setAlignmentY(0.0F);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(257, 257, 257)
@@ -125,13 +129,14 @@ public class AdminMenu extends javax.swing.JFrame {
                         .addComponent(listOfUsersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(266, Short.MAX_VALUE))
             .addComponent(mainMenuLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainMenuLabel)
                 .addGap(18, 18, 18)
                 .addComponent(welcomeLabel)

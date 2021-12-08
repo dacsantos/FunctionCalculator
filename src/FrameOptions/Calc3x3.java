@@ -72,7 +72,7 @@ public class Calc3x3 extends javax.swing.JFrame {
         varL = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        labelResult = new javax.swing.JLabel();
         varXresult = new javax.swing.JLabel();
         varYresult = new javax.swing.JLabel();
         varZresult = new javax.swing.JLabel();
@@ -148,9 +148,9 @@ public class Calc3x3 extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("e.g. 5x +(-2)y+(-7)=2 will be 5x - 2y -7 = 2");
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Result:");
+        labelResult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelResult.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelResult.setText("Result:");
 
         varXresult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         varXresult.setText("X = ");
@@ -198,7 +198,7 @@ public class Calc3x3 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -263,8 +263,9 @@ public class Calc3x3 extends javax.swing.JFrame {
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(labelResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(238, 238, 238)
@@ -282,7 +283,7 @@ public class Calc3x3 extends javax.swing.JFrame {
                         .addComponent(history)
                         .addGap(18, 18, 18)
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(107, 107, 107))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +336,7 @@ public class Calc3x3 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelResult, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(varXresult)
@@ -387,12 +388,13 @@ public class Calc3x3 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Values of X, Y and Z CANNOT be 0");
             } else {
                 //THREEBYTHREE METHOD
-                boolean valid = true;
-                double[][] result = ThreeByThree.threeBythree(valid, A, B, C, D, E, F, G, H, I, J, K, L);
+                double[][] result = ThreeByThree.threeBythree(A, B, C, D, E, F, G, H, I, J, K, L);
                 DecimalFormat df = new DecimalFormat("####0.00");
-                if(valid == false){
-                JOptionPane.showMessageDialog(null, "Determinant is equal to zero!\nEquation cannot be computed!");
-                clearVars(); 
+                if(result[0][0]==0 && result[1][0]==0 && result[2][0]==0){
+                labelResult.setText("Result: indeterminate!");
+                    varXresult.setText("X = 0");
+                    varYresult.setText("Y = 0");
+                    varZresult.setText("Y = 0");
                 }else{
 
                 for (int i = 0; i < 3; i++) {
@@ -646,7 +648,6 @@ public class Calc3x3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -655,6 +656,7 @@ public class Calc3x3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel labelResult;
     private javax.swing.JButton saveCalcButton;
     private javax.swing.JLabel title;
     private javax.swing.JTextField varA;
@@ -674,7 +676,8 @@ public class Calc3x3 extends javax.swing.JFrame {
     private javax.swing.JLabel varZresult;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
- private void clearVars() {
+ 
+    private void clearVars() {
         varA.setText("");
         varB.setText("");
         varC.setText("");

@@ -102,9 +102,11 @@ public class Calc2x2 extends javax.swing.JFrame {
         labelResult.setText("Result:");
 
         varXresult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        varXresult.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         varXresult.setText("X = ");
 
         varYresult.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        varYresult.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         varYresult.setText("Y = ");
 
         saveCalcButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -206,7 +208,8 @@ public class Calc2x2 extends javax.swing.JFrame {
                         .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(116, 116, 116))
                     .addComponent(labelResult, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(302, 302, 302)
@@ -222,7 +225,7 @@ public class Calc2x2 extends javax.swing.JFrame {
                         .addComponent(history)
                         .addGap(18, 18, 18)
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(91, 91, 91))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(warning, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE))
         );
@@ -295,7 +298,7 @@ public class Calc2x2 extends javax.swing.JFrame {
             String equation1, equation2;
             String result = varXresult.getText() + "   " + varYresult.getText();
             try {
-                if (validateIsNotNull()) {
+//                if (validateIsNotNull()) {
                     A = converter(varA.getText());
                     B = converter(varB.getText());
                     C = converter(varC.getText());
@@ -395,7 +398,7 @@ public class Calc2x2 extends javax.swing.JFrame {
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e + "\nSaving Not Successful");
                     }
-                }
+//                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "\nOne or more values are not numbers or are missing!\nTry again!");
             }

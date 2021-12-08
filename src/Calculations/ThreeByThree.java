@@ -6,6 +6,7 @@
 package Calculations;
 
 import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.text.DecimalFormat;
  */
 public class ThreeByThree {
 
-    public static double[][] threeBythree(boolean valid, double A0, double B0, double C0,
+    public static double[][] threeBythree(double A0, double B0, double C0,
             double D0, double E0, double F0,
             double G0, double H0, double I0,
             double J0, double K0, double L0) {
@@ -71,8 +72,7 @@ public class ThreeByThree {
         double cofactorTranspose[][] = new double[3][3];
 
         if (det == 0) {
-            System.out.println("Determinat is equal to zero!\nEquation cannot be computed!");
-            valid = false;
+            JOptionPane.showMessageDialog(null, "Determinant is equal to zero!\nEquation cannot be computed!");
         } else {
 
             cofactorTranspose[0][0] = inverseCofactor[0][0] * (1 / det);
@@ -86,8 +86,6 @@ public class ThreeByThree {
             cofactorTranspose[0][2] = inverseCofactor[2][0] * (1 / det);
             cofactorTranspose[1][2] = inverseCofactor[2][1] * (1 / det);
             cofactorTranspose[2][2] = inverseCofactor[2][2] * (1 / det);
-            
-            valid = true;
         }
 
         double sum = 0;

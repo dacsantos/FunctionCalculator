@@ -8,6 +8,7 @@ package FrameOptions;
 import FrameMenus.MainMenu;
 import FrameMenus.AdminMenu;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -27,12 +28,14 @@ public class LoginPage extends javax.swing.JFrame {
      * the middle of the screen.
      *
      */
-    public LoginPage() {
+    public LoginPage(){
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
-
+        Image icon = Toolkit.getDefaultToolkit().getImage("DK1.png");  
+        this.setIconImage(icon);  
+        
     }
 
     /**
@@ -58,19 +61,19 @@ public class LoginPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        title.setFont(new java.awt.Font("Papyrus", 1, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Equation Calculator");
         title.setAlignmentY(0.0F);
 
-        accessLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        accessLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         accessLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accessLabel.setText("USER ACCESS");
 
-        usernameLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         usernameLabel.setText("Username:");
 
-        passwordLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        passwordLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         passwordLabel.setText("Password:");
 
         usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -79,7 +82,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        loginButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        loginButton.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         loginButton.setText("LOG IN");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +90,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        signupButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        signupButton.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         signupButton.setText("SIGN UP");
         signupButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -95,7 +98,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        newUsers.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        newUsers.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         newUsers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         newUsers.setText("FOR NEW USERS");
 
@@ -108,10 +111,10 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        userWarning.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        userWarning.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         userWarning.setForeground(new java.awt.Color(255, 51, 51));
 
-        passwordWarning.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        passwordWarning.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         passwordWarning.setForeground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,11 +155,11 @@ public class LoginPage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(46, 46, 46)
                 .addComponent(title)
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addComponent(accessLabel)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(usernameLabel)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -166,18 +169,18 @@ public class LoginPage extends javax.swing.JFrame {
                         .addComponent(passwordLabel))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(userWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
-                .addComponent(passwordWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .addComponent(passwordWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newUsers)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
